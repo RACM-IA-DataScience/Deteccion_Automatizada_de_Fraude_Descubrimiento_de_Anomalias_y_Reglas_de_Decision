@@ -37,7 +37,7 @@ flowchart TD
 El proyecto está organizado en **tres modalidades de entrega equivalentes** (Notebook Unificado, Notebooks Modulares por Etapa y Paquete de Ingeniería de Software en Python), además de sus carpetas de datos, resultados gráficos/tabulares y documentación técnica:
 
 ```text
-Detección Automatizada de Fraude, Descubrimiento de Anomalías y Reglas de Decisión/
+Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisión/
 │
 ├── README.md                                                     # Documentación principal del repositorio
 ├── LICENSE                                                       # Licencia del repositorio
@@ -48,17 +48,17 @@ Detección Automatizada de Fraude, Descubrimiento de Anomalías y Reglas de Deci
 ├── Datasets/                                                     # Fuente de datos transaccionales en bruto
 │   └── credit_card_fraud_detection_2026.csv                      # Dataset (100,000 filas x 43 columnas)
 │
-├── Entrega Unificada/                                            # Modalidad 1: Todo el pipeline KDD en un solo archivo
+├── Entrega_Unificada/                                            # Modalidad 1: Todo el pipeline KDD en un solo archivo
 │   ├── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb            # Notebook maestro ejecutado de principio a fin
 │   └── Proyecto_final_data_mining.py                             # Script unificado ejecutable de extremo a extremo
 │
-├── Entrega Modular en Notebooks Separados/                       # Modalidad 2: Pipeline dividido en 4 cuadernos secuenciales
+├── Entrega_Modular_en_Notebooks_Separados/                       # Modalidad 2: Pipeline dividido en 4 cuadernos secuenciales
 │   ├── 01_KDD_Seleccion_Limpieza_y_Outliers.ipynb                # Fase 1 y 2: Auditoría, imputación y análisis IQR
 │   ├── 02_KDD_Transformacion_Ingenieria_y_Seleccion_Variables.ipynb # Fase 3: 8 features derivadas, Split 80/20, RobustScaler
 │   ├── 03_KDD_Mineria_IsolationForest_SMOTE_y_Modelado.ipynb     # Fase 4: Isolation Forest, Chi2, SMOTE y 5 modelos
 │   └── 04_KDD_Evaluacion_Interpretacion_y_Reglas_Decision.ipynb  # Fase 5: ROC/PR-AUC, matrices de confusión y reglas IF-THEN
 │
-├── Entrega Modular de Ingeniería de Software en Python/          # Modalidad 3: Arquitectura modular de producción (.py)
+├── Entrega_Modular_de_Ingeniería_de_Software_en_Python/          # Modalidad 3: Arquitectura modular de producción (.py)
 │   ├── __init__.py                                               # Inicializador del paquete Python
 │   ├── orquestador_modular_kdd.py                                # Punto de entrada que ejecuta las 4 fases en secuencia
 │   ├── fase1_seleccion_y_limpieza.py                             # Módulo de carga, anti-leakage e imputación semántica
@@ -78,7 +78,7 @@ Detección Automatizada de Fraude, Descubrimiento de Anomalías y Reglas de Deci
 │   ├── reglas_negocio_validadas.csv                              # Rendimiento empírico (Soporte, Precisión, Lift) de las 5 reglas
 │   └── reglas_decision_fraude.txt                                # Árbol de decisión exportado en reglas de texto plano
 │
-└── Documentacion adicional/                                      # Reportes técnicos, diccionario de código y justificación
+└── Documentacion_adicional/                                      # Reportes técnicos, diccionario de código y justificación
     ├── Documentacion_Tecnica_Proyecto_Final_KDD.md               # Memoria técnica detallada de las 7 etapas del proyecto
     ├── Diccionario_Funciones_Proyecto_Final_KDD.md               # Tablas de funciones utilizadas, sintaxis y resultados
     ├── Selección de base de datos.pdf                            # Documento académico de justificación del dataset
@@ -179,26 +179,26 @@ pip install -r requirements.txt
 1. **Modalidad 1 — Entrega Unificada:**
    - Para abrir el Notebook maestro completo:
      ```bash
-     jupyter notebook "Entrega Unificada/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
+     jupyter notebook "Entrega_Unificada/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
      ```
    - O para ejecutar el script completo desde consola:
      ```bash
-     python "Entrega Unificada/Proyecto_final_data_mining.py"
+     python "Entrega_Unificada/Proyecto_final_data_mining.py"
      ```
 
 2. **Modalidad 2 — Entrega Modular en Notebooks Separados:**
-   - Abre y ejecuta en orden secuencial (`01` $\rightarrow$ `02` $\rightarrow$ `03` $\rightarrow$ `04`) los cuadernos dentro de la carpeta `Entrega Modular en Notebooks Separados/`.
+   - Abre y ejecuta en orden secuencial (`01` $\rightarrow$ `02` $\rightarrow$ `03` $\rightarrow$ `04`) los cuadernos dentro de la carpeta `Entrega_Modular_en_Notebooks_Separados/`.
 
 3. **Modalidad 3 — Entrega Modular de Ingeniería de Software en Python:**
    - Ejecuta el orquestador principal que coordina automáticamente los 4 módulos (`.py`) y actualiza todos los gráficos y tablas en `Resultados/`:
      ```bash
-     python "Entrega Modular de Ingeniería de Software en Python/orquestador_modular_kdd.py"
+     python "Entrega_Modular_de_Ingeniería_de_Software_en_Python/orquestador_modular_kdd.py"
      ```
 
 ---
 
 ## 8. Documentación Complementaria
 
-Para profundizar en los aspectos teóricos, matemáticos y de implementación del proyecto, consulta la carpeta `Documentacion adicional/`:
-- 📄 **`Documentacion_Tecnica_Proyecto_Final_KDD.md`**: Justificación metodológica exhaustiva de las 7 etapas del proceso KDD.
-- 📘 **`Diccionario_Funciones_Proyecto_Final_KDD.md`**: Catálogo tabular de las **38 funciones y clases** utilizadas en el proyecto, incluyendo su descripción técnica, sintaxis exacta en el código, resultado cuantitativo generado y por qué fue indispensable su uso.
+Para profundizar en los aspectos teóricos, matemáticos y de implementación del proyecto, consulta la carpeta `Documentacion_adicional/`:
+- 📄 **[`Documentacion_Tecnica_Proyecto_Final_KDD.md`](Documentacion_adicional/Documentacion_Tecnica_Proyecto_Final_KDD.md)**: Justificación metodológica exhaustiva de las 7 etapas del proceso KDD.
+- 📘 **[`Diccionario_Funciones_Proyecto_Final_KDD.md`](Documentacion_adicional/Diccionario_Funciones_Proyecto_Final_KDD.md)**: Catálogo tabular de las **38 funciones y clases** utilizadas en el proyecto, incluyendo su descripción técnica, sintaxis exacta en el código, resultado cuantitativo generado y por qué fue indispensable su uso.

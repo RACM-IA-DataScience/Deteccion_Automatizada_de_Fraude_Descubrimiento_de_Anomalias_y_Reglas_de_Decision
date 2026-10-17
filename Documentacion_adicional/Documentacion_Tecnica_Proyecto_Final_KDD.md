@@ -2,11 +2,11 @@
 
 | Metadato | Detalle |
 | :--- | :--- |
-| **Dataset Fuente** | [credit_card_fraud_detection_2026.csv](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Datasets/credit_card_fraud_detection_2026.csv) (`100,000` registros $\times$ `43` variables) |
+| **Dataset Fuente** | [`credit_card_fraud_detection_2026.csv`](../Datasets/credit_card_fraud_detection_2026.csv) (`100,000` registros $\times$ `43` variables) |
 | **Autor** | Roberto Alejandro Chagra Martínez (Código: `208447128`) |
 | **Asignatura / Institución** | Data Mining y Knowledge Discovery — Centro Universitario de Guadalajara (UDG) |
 | **Tecnologías** | Python `3.12`, `pandas`, `numpy`, `scikit-learn`, `imbalanced-learn` (`SMOTE`), `seaborn`, `matplotlib` |
-| **Fecha** | **Pendiente** |
+| **Fecha** | Octubre 2026 |
 
 ---
 
@@ -48,7 +48,7 @@ flowchart TD
 * **Distribución de la clase objetivo (`is_fraud`):**
   * Clase `0` (*Legitimate*): **`97,945`** registros (`97.945%`).
   * Clase `1` (*Fraud*): **`2,055`** registros (`2.055%`).
-  * Pérdida financiera acumulada: **\$279,842.20 USD** (media de \$136.18 USD y máximo de \$4,482.16 USD por evento fraudulento).
+  * Pérdida financiera acumulada: **`$279,842.20 USD`** (media de `$136.18 USD` y máximo de `$4,482.16 USD` por evento fraudulento).
 * **Desglose por tipología de fraude (`fraud_type`):**
   * `Card-Not-Present`: **`1,054`** casos (`51.29%`)
   * `Account-Takeover`: **`447`** casos (`21.75%`)
@@ -72,13 +72,13 @@ flowchart TD
 
 ### 3.3 Etapa 4: Transformación e Ingeniería de Características
 Se diseñaron **`8` variables derivadas** para capturar señales débiles de fraude:
-* `velocity_tx_ratio_1h_24h` $= \frac{\text{transactions\_last\_1h}}{\text{transactions\_last\_24h} + 1}$
-* `velocity_amt_ratio_1h_24h` $= \frac{\text{amount\_last\_1h}}{\text{amount\_last\_24h} + 1}$
-* `credit_utilization_ratio` $= \frac{\text{transaction\_amount}}{\text{credit\_limit} + 1}$
-* `zscore_amount_30d` $= \frac{\text{transaction\_amount} - \text{avg\_transaction\_amount\_30d}}{\text{std\_transaction\_amount\_30d} + 1}$
-* `security_factors_count` $= \text{card\_present} + \text{used\_chip} + \text{used\_pin} \in \{0, 1, 2, 3\}$
-* `is_night_tx` $= \mathbb{I}(\text{transaction\_hour} \le 4)$
-* `is_new_account` $= \mathbb{I}(\text{account\_age\_days} \le 90)$
+* `velocity_tx_ratio_1h_24h`: $\frac{\text{Transacciones (1h)}}{\text{Transacciones (24h)} + 1}$ — Código: `transactions_last_1h / (transactions_last_24h + 1)`
+* `velocity_amt_ratio_1h_24h`: $\frac{\text{Monto (1h)}}{\text{Monto (24h)} + 1}$ — Código: `amount_last_1h / (amount_last_24h + 1)`
+* `credit_utilization_ratio`: $\frac{\text{Monto Transacción}}{\text{Límite de Crédito} + 1}$ — Código: `transaction_amount / (credit_limit + 1)`
+* `zscore_amount_30d`: $\frac{\text{Monto Actual} - \mu_{\text{30d}}}{\sigma_{\text{30d}} + 1}$ — Código: `(transaction_amount - avg_transaction_amount_30d) / (std_transaction_amount_30d + 1)`
+* `security_factors_count`: $\text{Tarjeta Presente} + \text{Chip} + \text{PIN} \in \{0, 1, 2, 3\}$ — Código: `card_present + used_chip + used_pin`
+* `is_night_tx`: $\mathbb{I}(\text{Hora} \le 4)$ — Código: `(transaction_hour <= 4).astype(int)`
+* `is_new_account`: $\mathbb{I}(\text{Antigüedad Días} \le 90)$ — Código: `(account_age_days <= 90).astype(int)`
 * `composite_risk_index`: Acumulador ponderado de 10 señales débiles concurrentes (eleva la tasa de fraude desde `0.04%` en nivel `0` hasta **`20.11%`** en nivel $\ge 5$).
 
 Posteriormente se aplicó **Partición Estratificada 80/20** (`X_train`: `80,000` filas; `X_test`: `20,000` filas) seguida de **compresión logarítmica (`np.log1p`)** y **`RobustScaler`** ajustado exclusivamente sobre `X_train`.
@@ -107,11 +107,11 @@ Posteriormente se aplicó **Partición Estratificada 80/20** (`X_train`: `80,000
 
 ---
 
-## 4. Artefactos Generados en `proyecto_final/Resultados/`
-* [`01_desbalance_y_tipologias.png`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/01_desbalance_y_tipologias.png): Desbalance estadístico y distribución por modalidad de fraude.
-* [`02_outliers_iqr_y_isolation_forest.png`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/02_outliers_iqr_y_isolation_forest.png): Curvas de densidad del puntaje `IsolationForest` y tasa de fraude por nivel de `composite_risk_index`.
-* [`03_seleccion_variables_importancia.png`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/03_seleccion_variables_importancia.png): Ranking de importancia de variables (*Random Forest*) y estadístico Chi-Cuadrado ($\chi^2$).
-* [`04_comparativa_modelos_curvas_roc_pr.png`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/04_comparativa_modelos_curvas_roc_pr.png): Curvas ROC y Precision-Recall comparativas en el conjunto de prueba.
-* [`05_matrices_confusion.png`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/05_matrices_confusion.png): Matrices de confusión de los modelos supervisados con *SMOTE*.
-* [`06_arbol_reglas_decision.png`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/06_arbol_reglas_decision.png): Árbol de decisión en unidades originales para extracción de reglas de negocio.
-* [`resumen_modelos_kdd.csv`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/resumen_modelos_kdd.csv), [`reglas_negocio_validadas.csv`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/reglas_negocio_validadas.csv) y [`reglas_decision_fraude.txt`](file:///g:/Mi%20unidad/Drive.alumno.udg.mx/5to/DATA_MINING_Y_KNOWLEDGE_DISCOVERY/proyecto_final/Resultados/reglas_decision_fraude.txt).
+## 4. Artefactos Generados en `Resultados/`
+* [`01_desbalance_y_tipologias.png`](../Resultados/01_desbalance_y_tipologias.png): Desbalance estadístico y distribución por modalidad de fraude.
+* [`02_outliers_iqr_y_isolation_forest.png`](../Resultados/02_outliers_iqr_y_isolation_forest.png): Curvas de densidad del puntaje `IsolationForest` y tasa de fraude por nivel de `composite_risk_index`.
+* [`03_seleccion_variables_importancia.png`](../Resultados/03_seleccion_variables_importancia.png): Ranking de importancia de variables (*Random Forest*) y estadístico Chi-Cuadrado ($\chi^2$).
+* [`04_comparativa_modelos_curvas_roc_pr.png`](../Resultados/04_comparativa_modelos_curvas_roc_pr.png): Curvas ROC y Precision-Recall comparativas en el conjunto de prueba.
+* [`05_matrices_confusion.png`](../Resultados/05_matrices_confusion.png): Matrices de confusión de los modelos supervisados con *SMOTE*.
+* [`06_arbol_reglas_decision.png`](../Resultados/06_arbol_reglas_decision.png): Árbol de decisión en unidades originales para extracción de reglas de negocio.
+* [`resumen_modelos_kdd.csv`](../Resultados/resumen_modelos_kdd.csv), [`reglas_negocio_validadas.csv`](../Resultados/reglas_negocio_validadas.csv) y [`reglas_decision_fraude.txt`](../Resultados/reglas_decision_fraude.txt).
