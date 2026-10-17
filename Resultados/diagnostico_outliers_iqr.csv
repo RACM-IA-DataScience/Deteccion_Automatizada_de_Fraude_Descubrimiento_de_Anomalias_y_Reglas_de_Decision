@@ -1,0 +1,7 @@
+Variable,Q1,Mediana,Q3,IQR,Lim_Sup,Outliers_Count,Outliers_%,Tasa_Fraude_Normal_%,Tasa_Fraude_Outlier_%,Lift_Riesgo
+transaction_amount,21.28,52.26,129.72,108.44,292.38,9959,9.96,1.95,3.02,1.55
+amount_last_1h,0.0,0.0,100.01,100.01,250.03,11150,11.15,1.85,3.71,2.01
+distance_from_home_km,20.6,1949.95,8482.35,8461.75,21174.97,0,0.0,2.05,0.0,0.0
+distance_from_last_tx_km,5.2,13.3,31.9,26.7,71.95,15617,15.62,1.85,3.18,1.72
+amount_vs_avg_ratio,0.21,0.58,1.66,1.45,3.84,11309,11.31,1.88,3.44,1.83
+transactions_last_1h,0.0,0.0,1.0,1.0,2.5,8990,8.99,1.71,5.57,3.26
