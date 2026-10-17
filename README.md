@@ -179,26 +179,26 @@ pip install -r requirements.txt
 1. **Modalidad 1 — Entrega Unificada:**
    - Para abrir el Notebook maestro completo:
      ```bash
-     jupyter notebook "Entrega Unificada/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
+     jupyter notebook "Entrega_Unificada/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
      ```
    - O para ejecutar el script completo desde consola:
      ```bash
-     python "Entrega Unificada/Proyecto_final_data_mining.py"
+     python "Entrega_Unificada/Proyecto_final_data_mining.py"
      ```
 
 2. **Modalidad 2 — Entrega Modular en Notebooks Separados:**
-   - Abre y ejecuta en orden secuencial (`01` $\rightarrow$ `02` $\rightarrow$ `03` $\rightarrow$ `04`) los cuadernos dentro de la carpeta `Entrega Modular en Notebooks Separados/`.
+   - Abre y ejecuta en orden secuencial (`01` $\rightarrow$ `02` $\rightarrow$ `03` $\rightarrow$ `04`) los cuadernos dentro de la carpeta `Entrega_Modular_en_Notebooks_Separados/`.
 
 3. **Modalidad 3 — Entrega Modular de Ingeniería de Software en Python:**
    - Ejecuta el orquestador principal que coordina automáticamente los 4 módulos (`.py`) y actualiza todos los gráficos y tablas en `Resultados/`:
      ```bash
-     python "Entrega Modular de Ingeniería de Software en Python/orquestador_modular_kdd.py"
+     python "Entrega_Modular_de_Ingeniería_de_Software_en_Python/orquestador_modular_kdd.py"
      ```
 
 ---
 
 ## 8. Documentación Complementaria
 
-Para profundizar en los aspectos teóricos, matemáticos y de implementación del proyecto, consulta la carpeta `Documentacion adicional/`:
+Para profundizar en los aspectos teóricos, matemáticos y de implementación del proyecto, consulta la carpeta `Documentacion_adicional/`:
 - 📄 **`Documentacion_Tecnica_Proyecto_Final_KDD.md`**: Justificación metodológica exhaustiva de las 7 etapas del proceso KDD.
 - 📘 **`Diccionario_Funciones_Proyecto_Final_KDD.md`**: Catálogo tabular de las **38 funciones y clases** utilizadas en el proyecto, incluyendo su descripción técnica, sintaxis exacta en el código, resultado cuantitativo generado y por qué fue indispensable su uso.
