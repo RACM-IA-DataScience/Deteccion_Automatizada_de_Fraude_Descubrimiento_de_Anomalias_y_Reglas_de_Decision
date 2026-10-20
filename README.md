@@ -14,7 +14,7 @@
 > **Proyecto Final Integrador — Minería de Datos y Descubrimiento de Conocimiento (KDD)**  
 > **Institución:** Centro Universitario de Guadalajara (CUGDL) — Universidad de Guadalajara  
 > **Programa:** Licenciatura en Inteligencia Artificial y Ciencia de Datos  
-> **Autor:** Roberto Alejandro Chagra Martínez (`208447128`)
+> **Autor:** Roberto Alejandro Chagra Martínez
 
 ---
 
@@ -32,15 +32,51 @@ Este repositorio implementa de principio a fin el proceso de **Knowledge Discove
 ## 2. Arquitectura del Proceso KDD Implementado
 
 ```mermaid
-%%{init: {'flowchart': {'padding': 20, 'nodeSpacing': 35, 'rankSpacing': 35, 'wrappingWidth': 400}}}%%
-flowchart TD
-    F1["Fase 1: Seleccion y Prevencion de Data Leakage"] --> F2["Fase 2: Limpieza, Imputacion Semantica y Outliers IQR"]
-    F2 --> F3["Fase 3: Ingenieria de Variables, Split 80/20 y Escalado Robusto"]
-    F3 --> F4A["Fase 4A: Mineria No Supervisada con Isolation Forest"]
-    F4A --> F4B["Fase 4B: Seleccion Chi2, Balanceo SMOTE y Clasificacion"]
-    F4B --> F5["Fase 5: Evaluacion PR-AUC y Reglas de Decision"]
-```
+%%{init: {'flowchart': {'look': {neo: {'padding': 20, 'nodeSpacing': 35, 'rankSpacing': 35, 'wrappingWidth': 400}}}}}%%
+flowchart LR
+  subgraph Etapa_1[Comprensión del Dominio]
+      P1["1. Ingesta CSV (100,000 x 43)"]
+  end
 
+  subgraph Etapa_2[Selección de Datos]
+      P2["2. Seleccion: Sin IDs ni Leakage (100,000 x 35)"]
+  end
+
+  subgraph Etapa_3[Limpieza y Preprocesamiento]
+      P3["3. Limpieza: browser = No_Aplica_Fisico"]
+      P4["4. Outliers IQR: Conservados (Lift 3.26x)"]
+    P3 --> P4
+  end
+
+  subgraph Etapa_4[Transformación e Ingeniería]
+      P5["5. Feature Engineering (+8 variables)"]
+      P6["6. One-Hot y Split 80/20 Estratificado"]
+      P7["7. Escalamiento: log1p + RobustScaler"]
+    P5 --> P6
+    P6 --> P7
+  end
+
+  subgraph Etapa_5[Minería de Datos]
+      P8["8. Mineria No Supervisada: Isolation Forest"]
+      P9["9. Seleccion Chi2 (45 vars) + SMOTE en Train"]
+    P8 --> P9
+  end
+
+  subgraph Etapa_6[Evaluación]
+      P10["10. Evaluacion de 5 Modelos (ROC y PR-AUC)"]
+  end
+
+  subgraph Etapa_7[Interpretación del Conocimiento]
+      P11["11. Extraccion de 5 Reglas (Lift 16.46x)"]
+  end
+
+  Etapa_1 --> Etapa_2
+  Etapa_2 --> Etapa_3
+  Etapa_3 --> Etapa_4
+  Etapa_4 --> Etapa_5
+  Etapa_5 --> Etapa_6
+  Etapa_6 --> Etapa_7
+```
 ---
 
 ## 3. Estructura del Proyecto
@@ -59,17 +95,17 @@ Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisi
 ├── Datasets/                                                     # Fuente de datos transaccionales en bruto
 │   └── credit_card_fraud_detection_2026.csv                      # Dataset (100,000 filas x 43 columnas)
 │
-├── Entrega_Unificada/                                            # Modalidad 1: Todo el pipeline KDD en un solo archivo
+├── src/Entrega_Unificada/                                            # Modalidad 1: Todo el pipeline KDD en un solo archivo
 │   ├── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb            # Notebook maestro ejecutado de principio a fin
 │   └── Proyecto_final_data_mining.py                             # Script unificado ejecutable de extremo a extremo
 │
-├── Entrega_Modular_en_Notebooks_Separados/                       # Modalidad 2: Pipeline dividido en 4 cuadernos secuenciales
+├── src/Entrega_Modular_en_Notebooks_Separados/                       # Modalidad 2: Pipeline dividido en 4 cuadernos secuenciales
 │   ├── 01_KDD_Seleccion_Limpieza_y_Outliers.ipynb                # Fase 1 y 2: Auditoría, imputación y análisis IQR
 │   ├── 02_KDD_Transformacion_Ingenieria_y_Seleccion_Variables.ipynb # Fase 3: 8 features derivadas, Split 80/20, RobustScaler
 │   ├── 03_KDD_Mineria_IsolationForest_SMOTE_y_Modelado.ipynb     # Fase 4: Isolation Forest, Chi2, SMOTE y 5 modelos
 │   └── 04_KDD_Evaluacion_Interpretacion_y_Reglas_Decision.ipynb  # Fase 5: ROC/PR-AUC, matrices de confusión y reglas IF-THEN
 │
-├── Entrega_Modular_de_Ingeniería_de_Software_en_Python/          # Modalidad 3: Arquitectura modular de producción (.py)
+├── src/Entrega_Modular_de_Ingeniería_de_Software_en_Python/          # Modalidad 3: Arquitectura modular de producción (.py)
 │   ├── __init__.py                                               # Inicializador del paquete Python
 │   ├── orquestador_modular_kdd.py                                # Punto de entrada que ejecuta las 4 fases en secuencia
 │   ├── fase1_seleccion_y_limpieza.py                             # Módulo de carga, anti-leakage e imputación semántica
@@ -77,7 +113,7 @@ Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisi
 │   ├── fase3_mineria_anomalias_y_clasificacion.py                # Módulo híbrido: Isolation Forest + SMOTE + Clasificadores
 │   └── fase4_evaluacion_y_reglas_decision.py                     # Módulo de evaluación financiera y extracción de reglas
 │
-├── Resultados/                                                   # Artefactos visuales y tabulares generados por el pipeline
+├── results/                                                   # Artefactos visuales y tabulares generados por el pipeline
 │   ├── 01_desbalance_y_tipologias.png                            # Gráfico de desbalance 97.9% vs 2.1% y tipos de fraude
 │   ├── 02_outliers_iqr_y_isolation_forest.png                    # Lift de anomalías en colas IQR e Isolation Forest
 │   ├── 03_seleccion_variables_importancia.png                    # Top 15 variables más importantes (Random Forest / Chi2)
@@ -153,7 +189,7 @@ El modelo `IsolationForest(contamination=0.05)` entrenado sin etiquetas identifi
 A partir del árbol de decisión interpretable y la importancia de características, se extrajeron y validaron **5 reglas de negocio listas para producción** (donde la tasa base de fraude del banco es `2.055%`):
 
 ```mermaid
-%%{init: {'flowchart': {'padding': 20, 'nodeSpacing': 35, 'rankSpacing': 35, 'wrappingWidth': 400}}}%%
+%%{init: {'flowchart': {'look': {neo: {'padding': 20, 'nodeSpacing': 35, 'rankSpacing': 35, 'wrappingWidth': 400}}}}}%%
 flowchart TD
     TX["Transaccion Entrante en Tiempo Real"] --> R1{"Regla 1: Pais Alto Riesgo + Sin Tarjeta + Tx 1h >= 3"}
     R1 -- "Si cumple" --> A1["BLOQUEO INMEDIATO (Precision: 33.83% | Lift: 16.46x)"]
@@ -190,20 +226,20 @@ pip install -r requirements.txt
 1. **Modalidad 1 — Entrega Unificada:**
    - Para abrir el Notebook maestro completo:
      ```bash
-     jupyter notebook "Entrega_Unificada/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
+     jupyter notebook "src/Entrega_Unificada/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
      ```
    - O para ejecutar el script completo desde consola:
      ```bash
-     python "Entrega_Unificada/Proyecto_final_data_mining.py"
+     python "src/Entrega_Unificada/Proyecto_final_data_mining.py"
      ```
 
 2. **Modalidad 2 — Entrega Modular en Notebooks Separados:**
-   - Abre y ejecuta en orden secuencial (`01` $\rightarrow$ `02` $\rightarrow$ `03` $\rightarrow$ `04`) los cuadernos dentro de la carpeta `Entrega_Modular_en_Notebooks_Separados/`.
+   - Abre y ejecuta en orden secuencial (`01` $\rightarrow$ `02` $\rightarrow$ `03` $\rightarrow$ `04`) los cuadernos dentro de la carpeta `src/Entrega_Modular_en_Notebooks_Separados/`.
 
 3. **Modalidad 3 — Entrega Modular de Ingeniería de Software en Python:**
-   - Ejecuta el orquestador principal que coordina automáticamente los 4 módulos (`.py`) y actualiza todos los gráficos y tablas en `Resultados/`:
+   - Ejecuta el orquestador principal que coordina automáticamente los 4 módulos (`.py`) y actualiza todos los gráficos y tablas en `results/`:
      ```bash
-     python "Entrega_Modular_de_Ingeniería_de_Software_en_Python/orquestador_modular_kdd.py"
+     python "src/Entrega_Modular_de_Ingeniería_de_Software_en_Python/orquestador_modular_kdd.py"
      ```
 
 ---

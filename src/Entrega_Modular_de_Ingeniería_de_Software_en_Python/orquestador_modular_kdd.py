@@ -28,7 +28,7 @@ from fase4_evaluacion_y_reglas_decision import evaluar_e_interpretar_conocimient
 
 def main():
     csv_path = PROJECT_ROOT / "Datasets" / "credit_card_fraud_detection_2026.csv"
-    out_dir = PROJECT_ROOT / "Resultados"
+    out_dir = PROJECT_ROOT / "results"
 
     # Fase 1 (Etapas 1, 2 y 3 KDD)
     _, df_seleccionado = cargar_y_seleccionar_datos(csv_path, out_dir)

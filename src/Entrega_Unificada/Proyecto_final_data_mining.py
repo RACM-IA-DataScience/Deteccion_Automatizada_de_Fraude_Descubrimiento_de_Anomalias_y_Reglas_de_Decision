@@ -74,8 +74,8 @@ def obtener_ruta_dataset() -> Path:
 
 
 def ejecutar_pipeline_kdd():
-    project_root = Path(__file__).resolve().parent.parent
-    out_dir = project_root / "Resultados"
+    project_root = Path(__file__).resolve().parent.parent.parent if Path(__file__).resolve().parent.parent.name == 'src' else Path(__file__).resolve().parent.parent
+    out_dir = project_root / "results"
     out_dir.mkdir(exist_ok=True, parents=True)
 
     print("=" * 90)
