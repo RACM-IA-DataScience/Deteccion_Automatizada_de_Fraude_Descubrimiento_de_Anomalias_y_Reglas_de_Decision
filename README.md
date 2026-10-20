@@ -32,7 +32,6 @@ Este repositorio implementa de principio a fin el proceso de **Knowledge Discove
 ## 2. Arquitectura del Proceso KDD Implementado
 
 ```mermaid
-%%{init: {'flowchart': {'look': {neo: {'padding': 20, 'nodeSpacing': 35, 'rankSpacing': 35, 'wrappingWidth': 400}}}}}%%
 flowchart LR
   subgraph Etapa_1[Comprensión del Dominio]
       P1["1. Ingesta CSV (100,000 x 43)"]
@@ -189,7 +188,6 @@ El modelo `IsolationForest(contamination=0.05)` entrenado sin etiquetas identifi
 A partir del árbol de decisión interpretable y la importancia de características, se extrajeron y validaron **5 reglas de negocio listas para producción** (donde la tasa base de fraude del banco es `2.055%`):
 
 ```mermaid
-%%{init: {'flowchart': {'look': {neo: {'padding': 20, 'nodeSpacing': 35, 'rankSpacing': 35, 'wrappingWidth': 400}}}}}%%
 flowchart TD
     TX["Transaccion Entrante en Tiempo Real"] --> R1{"Regla 1: Pais Alto Riesgo + Sin Tarjeta + Tx 1h >= 3"}
     R1 -- "Si cumple" --> A1["BLOQUEO INMEDIATO (Precision: 33.83% | Lift: 16.46x)"]
