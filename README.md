@@ -245,8 +245,8 @@ pip install -r requirements.txt
 ## 8. Documentación Complementaria
 
 Para profundizar en los aspectos teóricos, matemáticos y de implementación del proyecto, consulta la carpeta `Documentacion_adicional/`:
-- 📄 **[`Documentacion_Tecnica_Proyecto_Final_KDD.md`](Documentacion_adicional/Documentacion_Tecnica_Proyecto_Final_KDD.md)**: Justificación metodológica exhaustiva de las 7 etapas del proceso KDD.
-- 📘 **[`Diccionario_Funciones_Proyecto_Final_KDD.md`](Documentacion_adicional/Diccionario_Funciones_Proyecto_Final_KDD.md)**: Catálogo tabular de las **38 funciones y clases** utilizadas en el proyecto, incluyendo su descripción técnica, sintaxis exacta en el código, resultado cuantitativo generado y por qué fue indispensable su uso.
+- 📄 **[`Documentacion_Tecnica.md`](Documentacion_adicional/Documentacion_Tecnica.md)**: Justificación metodológica exhaustiva de las 7 etapas del proceso KDD.
+- 📘 **[`Diccionario_Funciones.md`](Documentacion_adicional/Diccionario_Funciones.md)**: Catálogo tabular de las **38 funciones y clases** utilizadas en el proyecto, incluyendo su descripción técnica, sintaxis exacta en el código, resultado cuantitativo generado y por qué fue indispensable su uso.
 
 ---
 
