@@ -182,11 +182,10 @@ Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisi
 
 ├── Entregables/                                                  # CARPETA OFICIAL DE ENTREGA DEL PROYECTO INTEGRADOR (KDD)
 
-│   ├── Proyecto_Integrador_Preparacion_y_Seleccion_Datos.ipynb   # Cuaderno Google Colab (.ipynb) completo, comentado y ejecutado
+│   ├── Notebook_Notebook_Proyecto_Integrador_Data_Mining_Avance_Personal.ipynb   # Cuaderno Google Colab (.ipynb) completo, comentado y ejecutado
 
-│   ├── Reporte_Avance_Proyecto_Integrador_KDD.pdf                # Reporte Académico Oficial en PDF (11 páginas en formato presentación KDD)
+│   ├── Reporte_Reporte_Proyecto_Integrador_Data_Mining_Avance_Personal.pdf                # Reporte Académico Oficial en PDF (11 páginas en formato presentación KDD)
 
-│   ├── Guia_Estudio_y_Defensa_Proyecto_KDD.pdf                   # Guía de estudio y preparación de defensa oral con el profesor
 
 │   ├── generar_reporte_pdf.py                                    # Script de compilación automática del reporte PDF con Chrome Headless
 

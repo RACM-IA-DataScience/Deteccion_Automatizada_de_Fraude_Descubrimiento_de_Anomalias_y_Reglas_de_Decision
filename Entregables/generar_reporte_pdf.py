@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Generador del Documento PDF Oficial Completo (11 Páginas):
-'Reporte_Avance_Proyecto_Integrador_KDD.pdf'
+'Reporte_Proyecto_Integrador_Data_Mining_Avance_Personal.pdf'
 Formato gráfico oficial del template (Montserrat, violeta/lavanda, tarjetas y fondos a sangre),
 100% en español (sin mezcla de idiomas) y cubriendo exhaustivamente las 7 etapas KDD:
 
@@ -1333,7 +1333,7 @@ print(f"HTML generado exitosamente: {HTML_PATH.resolve()}")
 
 # Compilar a PDF usando Google Chrome Headless
 CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-PDF_PATH = Path("Entregables/Reporte_Avance_Proyecto_Integrador_KDD.pdf")
+PDF_PATH = Path("Entregables/Reporte_Proyecto_Integrador_Data_Mining_Avance_Personal.pdf")
 
 cmd = [
     CHROME_PATH,

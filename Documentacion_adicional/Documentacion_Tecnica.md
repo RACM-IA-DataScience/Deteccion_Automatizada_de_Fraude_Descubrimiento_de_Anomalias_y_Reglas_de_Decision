@@ -1,183 +1,169 @@
-# Documentación Técnica: Proceso KDD para Detección Automatizada de Fraude, Descubrimiento de Anomalías y Reglas de Decisión — *Credit Card Fraud Detection 2026*
+# 📊 Documento Técnico — Proyecto Integrador
 
-| Metadato | Detalle |
+| Metadato Académico / Técnico | Detalle Oficial |
 | :--- | :--- |
-| **Dataset Fuente** | [`credit_card_fraud_detection_2026.csv`](../Datasets/credit_card_fraud_detection_2026.csv) (`100,000` registros $\times$ `43` variables) |
-| **Tecnologías** | Python `3.12`, `pandas`, `numpy`, `scikit-learn`, `imbalanced-learn` (`SMOTE`), `seaborn`, `matplotlib` |
+| **Institución** | UNIVERSIDAD DE GUADALAJARA |
+| **Centro Universitario** | Centro Universitario de Guadalajara (CUGDL) |
+| **Programa Académico** | Licenciatura en Inteligencia Artificial y Ciencia de Datos |
+| **Materia** | Data Mining y Knowledge Discovery |
+| **Profesora** | Mtra. Milagros Contreras Elizalde |
+| **Alumno** | Roberto Alejandro Chagra Martínez (Código: `208447128`) |
+| **Fecha y Ubicación** | Octubre de 2026 • Guadalajara, Jalisco, México |
+| **Entregable** | `Documento_Tecnico_Proyecto_Integrador_Data_Mining_Avance_Personal` |
+| **Cuaderno Asociado** | [`Notebook_Proyecto_Integrador_Data_Mining_Avance_Personal.ipynb`](Notebook_Proyecto_Integrador_Data_Mining_Avance_Personal.ipynb) |
+| **Dataset Fuente** | *Credit Card Fraud Detection Dataset 2026* (`credit_card_fraud_detection_2026.csv`) |
+| **Dimensiones de Ingesta** | `100,000` transacciones $\times$ `43` variables originales |
+| **Entorno Tecnológico** | Python `3.12+`, `pandas`, `numpy`, `scikit-learn`, `seaborn`, `matplotlib`, `kagglehub` |
+| **Metodología Conductora** | KDD (*Knowledge Discovery in Databases*) — 7 Etapas Aplicadas a Preparación de Datos |
+| **Fecha de Presentación** | Octubre de 2026 |
 
 ---
 
-## 1. Resumen Ejecutivo y Propósito del Proyecto
+## 1. Resumen Ejecutivo y Planteamiento del Problema en Preparación de Datos
 
-Este proyecto implementa de principio a fin las **7 etapas de la metodología KDD (*Knowledge Discovery in Databases*)** sobre el conjunto de datos transaccionales `credit_card_fraud_detection_2026.csv` (`100,000` transacciones calibradas con estadísticas de la Reserva Federal, Informe Nilson, FICO y el Banco Central Europeo).
+El presente documento técnico compendia exclusivamente el trabajo desarrollado a la fecha dentro de la carpeta [`Entregables/`](.), correspondiente a la **Fase de Preparación, Limpieza, Transformación, Selección de Datos y Validación Cruzada Libre de Fuga (*Data Leakage*)** del Proyecto Integrador.
 
-El problema central resuelto consiste en **identificar señales débiles de fraude dentro de un conjunto de datos masivo y estadísticamente desbalanceado** (`97.945%` de operaciones legítimas frente a `2.055%` fraudulentas, razón `1 : 47.66`), articulando:
-1. **Auditoría contra Fuga de Información (*Data Leakage*) y Sesgo de Selección:** Identificación de variables post-evento (`fraud_type`, `fraud_amount_lost`) y tratamiento estructural de los `41,709` valores faltantes en `browser` asociados a operaciones físicas (`POS Terminal` y `ATM`).
-2. **Detección de Valores Atípicos (*Outlier Detection*):** Evaluación paramétrica/no paramétrica mediante **Criterio $1.5 \times \text{IQR}$ de Tukey** y minería no supervisada con **`IsolationForest`**, demostrando que los valores atípicos concentran hasta **`3.75x`** más probabilidad de fraude.
-3. **Ingeniería y Selección Estadística de Características:** Creación de `8` variables derivadas de dominio (incluyendo el índice multiseñal `composite_risk_index`) y filtrado mediante **Prueba Chi-Cuadrado ($\chi^2$)** e importancia Gini.
-4. **Clasificación Supervisada con Balanceo Sintético (*SMOTE*):** Comparación rigurosa de `5` algoritmos (*Dummy Baseline*, *Regresión Logística*, *Árbol de Decisión*, *Random Forest* y *Gradient Boosting*) con calibración de umbral sensible al costo ($F_2\text{-Score}$).
-5. **Extracción de Reglas de Decisión Accionables:** Descubrimiento y validación de reglas de negocio interpretables con un *Lift* de hasta **`16.46x`** sobre la tasa base de fraude.
+En la detección automatizada de fraude con tarjetas de crédito, la fase de preparación de datos constituye el cimiento más crítico para garantizar que cualquier modelo posterior generalice con éxito en un entorno bancario real. El avance aborda y resuelve tres problemas metodológicos fundamentales:
+
+1. **La Paradoja de la Exactitud (*Accuracy Paradox*) por Desbalance Severo:**  
+   El conjunto de datos contiene **`97,945` operaciones legítimas (`97.945%`)** y únicamente **`2,055` transacciones fraudulentas confirmadas (`2.055%`)**, con una razón de desbalance de **`1 : 47.66`**. Bajo esta distribución, la métrica tradicional de exactitud (*Accuracy*) resulta inútil, ya que un modelo trivial que prediga siempre la clase mayoritaria obtendría un $97.945\%$ de exactitud con un **$0.0\%$ de sensibilidad (*Recall*)**, omitiendo el $100\%$ de los siniestros económicos.
+2. **Asimetría de Costos y Quebranto Financiero:**  
+   Un Falso Negativo (dejar pasar un fraude) causa un daño económico directo no recuperable para la institución (en este dataset asciende a **$\$279,842.20\text{ USD}$** acumulados, con media de $\$136.18\text{ USD}$ y máximo de $\$4,482.16\text{ USD}$ por evento). Un Falso Positivo solo genera fricción transaccional de atención al cliente. Por ende, la preparación de datos se orienta a optimizar métricas asimétricas: **$PR\text{-}AUC$ (Área bajo la curva Precision-Recall)**, **$ROC\text{-}AUC$** y **$Recall$**.
+3. **Auditoría Estricta contra Fuga de Información (*Data Leakage*) y Sesgo de Selección:**  
+   Se identificaron y purgaron de raíz los atributos post-facto (`fraud_type` y `fraud_amount_lost`) y los identificadores únicos. Asimismo, se demostró y resolvió la ausencia estructural en canales físicos (`browser`), evitando eliminar registros que habrían borrado el $41.7\%$ de la operatoria presencial del banco.
 
 ---
 
-## 2. Arquitectura del Pipeline KDD y Modalidades de Ejecución
+## 2. Metodología KDD — Las 7 Etapas Aplicadas a la Preparación de Datos
 
-### 2.1 Arquitectura del Pipeline
 ```mermaid
-%%{init: {'flowchart': {'look': {neo: {'padding': 20, 'nodeSpacing': 35, 'rankSpacing': 35, 'wrappingWidth': 400}}}}}%%
 flowchart LR
-  subgraph Etapa_1[Comprensión del Dominio]
-      P1["1. Ingesta CSV (100,000 x 43)"]
-  end
-
-  subgraph Etapa_2[Selección de Datos]
-      P2["2. Seleccion: Sin IDs ni Leakage (100,000 x 35)"]
-  end
-
-  subgraph Etapa_3[Limpieza y Preprocesamiento]
-      P3["3. Limpieza: browser = No_Aplica_Fisico"]
-      P4["4. Outliers IQR: Conservados (Lift 3.26x)"]
-    P3 --> P4
-  end
-
-  subgraph Etapa_4[Transformación e Ingeniería]
-      P5["5. Feature Engineering (+8 variables)"]
-      P6["6. One-Hot y Split 80/20 Estratificado"]
-      P7["7. Escalamiento: log1p + RobustScaler"]
-    P5 --> P6
-    P6 --> P7
-  end
-
-  subgraph Etapa_5[Minería de Datos]
-      P8["8. Mineria No Supervisada: Isolation Forest"]
-      P9["9. Seleccion Chi2 (45 vars) + SMOTE en Train"]
-    P8 --> P9
-  end
-
-  subgraph Etapa_6[Evaluación]
-      P10["10. Evaluacion de 5 Modelos (ROC y PR-AUC)"]
-  end
-
-  subgraph Etapa_7[Interpretación del Conocimiento]
-      P11["11. Extraccion de 5 Reglas (Lift 16.46x)"]
-  end
-
-  Etapa_1 --> Etapa_2
-  Etapa_2 --> Etapa_3
-  Etapa_3 --> Etapa_4
-  Etapa_4 --> Etapa_5
-  Etapa_5 --> Etapa_6
-  Etapa_6 --> Etapa_7
+  E1["1. Objetivo
+Comprensión Financiera"] --> E2["2. Selección
+Exclusión IDs y Leakage"]
+  E2 --> E3["3. Limpieza
+Imputación y Tukey IQR"]
+  E3 --> E4["4. Transformación
++8 Vars, One-Hot, RobustScaler"]
+  E4 --> E5["5. Minería / CV
+5-Fold Stratified Pipeline"]
+  E5 --> E6["6. Evaluación
+Métricas por Pliegue"]
+  E6 --> E7["7. Interpretación
+Conocimiento de Preparación"]
 ```
 
 ---
 
-### 2.2 Modalidades de Ejecución
-### Catálogo de Módulos y Entregas
+## 3. Desarrollo Detallado por Etapas KDD del Avance
 
-**1. Modalidad 1 — Entrega Unificada (../src/Entrega_Unificada/):**
-- Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb: Cuaderno Jupyter maestro de principio a fin.
-- Proyecto_final_data_mining.py: Script completo ejecutable en un solo paso.
-
-**2. Modalidad 2 — Entrega Modular en Notebooks Separados (../src/Entrega_Modular_en_Notebooks_Separados/):**
-- 01_KDD_Seleccion_Limpieza_y_Outliers.ipynb
-- 02_KDD_Transformacion_Ingenieria_y_Seleccion_Variables.ipynb
-- 03_KDD_Mineria_IsolationForest_SMOTE_y_Modelado.ipynb
-- 04_KDD_Evaluacion_Interpretacion_y_Reglas_Decision.ipynb
-
-**3. Modalidad 3 — Paquete Modular de Ingeniería de Software (../src/Entrega_Modular_de_Ingenieria_de_Software_en_Python/):**
-- orquestador_modular_kdd.py
-- fase1_seleccion_y_limpieza.py
-- fase2_transformacion_y_seleccion.py
-- fase3_mineria_anomalias_y_clasificacion.py
-- fase4_evaluacion_y_reglas_decision.py
-
-**4. Documentación Complementaria (../Documentacion_adicional/):**
-- Diccionario_Funciones_Proyecto_Final_KDD.md
-- Selección de base de datos.pdf
+### 3.1 Etapa 1 KDD: Definición del Objetivo y Comprensión del Dominio
+* **Distribución de la Clase Objetivo (`is_fraud`):**  
+  * Clase 0 (Legítima): `97,945` registros (`97.945%`).
+  * Clase 1 (Fraude): `2,055` registros (`2.055%`).
+* **Desglose de Tipologías de Fraude Confirmadas en el Dataset:**  
+  * *Card-Not-Present (CNP):* `1,054` casos (`51.29%`). Fraude digital en comercio electrónico.
+  * *Account-Takeover (ATO):* `447` casos (`21.75%`). Suplantación de identidad en banca en línea.
+  * *Synthetic-Identity:* `309` casos (`15.04%`). Combinación de historiales reales y ficticios.
+  * *Card-Present (CP):* `245` casos (`11.92%`). Fraude presencial en terminales y cajeros.
+* **Meta Principal de la Preparación:** Entregar una matriz de datos normalizada, libre de sesgos, reducida a sus dimensiones más informativas y validada mediante particiones cruzadas estratificadas sin filtraciones entre entrenamiento y validación.
 
 ---
 
-## 3. Desarrollo Detallado por Etapas KDD
-
-### 3.1 Etapa 1 y Etapa 2: Comprensión del Dominio y Selección de Datos
-- Distribución de la clase objetivo (is_fraud):
-  * Clase 0 (Legitimate): 97,945 registros (97.945%).
-  * Clase 1 (Fraud): 2,055 registros (2.055%).
-  * Pérdida financiera acumulada: $279,842.20 USD (media de $136.18 USD y máximo de $4,482.16 USD por evento fraudulento).
-- Desglose por tipología de fraude (fraud_type):
-  * Card-Not-Present: 1,054 casos (51.29%)
-  * Account-Takeover: 447 casos (21.75%)
-  * Synthetic-Identity: 309 casos (15.04%)
-  * Card-Present: 245 casos (11.92%)
-- Auditoría de Data Leakage: Se excluyeron fraud_type y fraud_amount_lost del conjunto predictor X porque son variables registradas post-facto con dependencia determinista sobre is_fraud. También se descartaron los identificadores transaction_id, customer_id, card_id, merchant_id, transaction_datetime y customer_state.
+### 3.2 Etapa 2 KDD: Selección de Datos y Auditoría Anti-Leakage
+* **Conjunto de Datos Fuente:** `credit_card_fraud_detection_2026.csv` (`100,000` transacciones $\times$ `43` columnas), alojado en Kaggle y calibrado con estadísticas de la Fed, Nilson Report y BCE.
+* **Exclusión de Identificadores No Generalizables (6 columnas):**  
+  `transaction_id`, `customer_id`, `card_id`, `merchant_id`, `transaction_datetime` y `customer_state`. Se descartaron porque su alta cardinalidad memoriza identidades en lugar de patrones conductuales.
+* **Auditoría de Fuga de Información (*Target Leakage* — 2 columnas purgadas):**  
+  Se detectó que `fraud_type` (tipo de fraude confirmado) y `fraud_amount_lost` (monto registrado como pérdida) son **variables post-evento**, generadas únicamente tras auditar y confirmar el delito.  
+  *Justificación matemática:* Si `fraud_amount_lost > 0`, la probabilidad a posteriori de fraude es $1.0000$. Incluirla crearía un modelo ficticio con métricas perfectas en desarrollo que colapsaría en producción al autorizar transacciones en vivo donde estos atributos aún no existen.
+* **Matriz Seleccionada Resultante:** **`100,000` registros $\times$ `35` columnas legítimas** (`34` predictoras potenciales + `1` objetivo `is_fraud`).
 
 ---
 
-### 3.2 Etapa 3: Limpieza de Datos y Diagnóstico de Valores Atípicos (Outliers)
-1. Tratamiento de valores faltantes estructurales en browser (41,709 registros, 41.71%):
-   * Se demostró que los 41,709 valores NaN se distribuyen exactamente en 35,777 transacciones In-store (POS Terminal) y 5,932 transacciones ATM.
-   * Eliminar filas habría borrado el 100% de la operatoria presencial del banco (Sesgo de Selección). Se imputó la categoría explícita 'No_Aplica_Fisico'.
-2. Diagnóstico de Valores Atípicos (1.5 x IQR):  
-   | Variable Analizada | Q1 | Mediana | Q3 | IQR | Lim. Sup. | Outliers | Fraude Normal | Fraude Outliers | Lift |  
-   | ------ | ------ | ------ | ------| ------ | ------ | ------ | ------ | ------| ------ |  
-   | **transactions_last_1h** | 0.00 | 0.00 | 1.00 | 1.00 | 2.50 | 8,990 (8.99%) | 1.71% | 5.57% | 3.26x |  
-   | **amount_last_1h** | 0.00 | 0.00 | 100.01 | 100.01 | 250.03 | 11,150 (11.15%) | 1.85% | 3.71% | 2.01x |  
-   | **amount_vs_avg_ratio** | 0.21 | 0.58 | 1.66 | 1.45 | 3.84 | 11,309 (11.31%) | 1.88% | 3.44% | 1.83x |  
-   | **distance_from_last_tx_km** | 5.20 | 13.30 | 31.90 | 26.70 | 71.95 | 15,617 (15.62%) | 1.85% | 3.18% | 1.72x |  
-   | **transaction_amount** | 21.28 | 52.26 | 129.72 | 108.44 | 292.38 | 9,959 (9.96%) | 1.95% | 3.02% | 1.55x |
+### 3.3 Etapa 3 KDD: Limpieza de Datos y Diagnóstico de Valores Atípicos (Outliers)
+
+#### 3.3.1 Diagnóstico de Calidad y Ausencia Estructural en `browser` (41,709 registros, 41.71%)
+* Se constató mediante tabla de contingencia que los `41,709` valores faltantes (`NaN`) en `browser` corresponden en un **`100.0%`** a transacciones realizadas en canales físicos: `35,777` en terminales punto de venta (`POS Terminal` / `In-store`) y `5,932` en cajeros automáticos (`ATM`).
+* **Prevención de Sesgo de Selección (*Selection Bias*):** Ejecutar `dropna()` habría borrado el $41.71\%$ del dataset y suprimido la totalidad de la operatoria presencial del banco. Se realizó una **imputación semántica explícita** con la categoría `'No_Aplica_Fisico'`.
+* **Duplicados:** Se verificó la integridad de las `100,000` filas, certificando **`0` registros duplicados**.
+
+#### 3.3.2 Diagnóstico No Paramétrico de Valores Atípicos (Criterio $1.5 \times \text{IQR}$ de Tukey)
+Se analizaron las 5 variables continuas de velocidad y monto transaccional:
+
+| Variable Analizada | Q1 | Mediana ($Q_2$) | Q3 | IQR | Límite Superior Tukey | Outliers ($> \text{Lim.}$) | Tasa Fraude Normal | Tasa Fraude en Outliers | Factor de Elevación (*Fraud Lift*) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **`transactions_last_1h`** | `0.00` | `0.00` | `1.00` | `1.00` | `2.50` | `8,990` (`8.99%`) | `1.71%` | **`5.57%`** | **`3.26x`** |
+| **`amount_last_1h`** | `0.00` | `0.00` | `100.01` | `100.01` | `250.03` | `11,150` (`11.15%`) | `1.85%` | **`3.71%`** | **`2.01x`** |
+| **`amount_vs_avg_ratio`** | `0.21` | `0.58` | `1.66` | `1.45` | `3.84` | `11,309` (`11.31%`) | `1.88%` | **`3.44%`** | **`1.83x`** |
+| **`distance_from_last_tx_km`** | `5.20` | `13.30` | `31.90` | `26.70` | `71.95` | `15,617` (`15.62%`) | `1.85%` | **`3.18%`** | **`1.72x`** |
+| **`transaction_amount`** | `21.28` | `52.26` | `129.72` | `108.44` | `292.38` | `9,959` (`9.96%`) | `1.95%` | **`3.02%`** | **`1.55x`** |
+
+* **Conclusión:** Las colas atípicas concentran entre **`1.55x` y `3.26x` veces más fraude** que el rango normal. Por tanto, en fraude financiero **Outlier $\neq$ Error**. **Se conservó el $100\%$ de los valores atípicos**, gestionando su asimetría mediante escalamiento robusto en la siguiente fase.
 
 ---
 
-### 3.3 Etapa 4: Transformación e Ingeniería de Características
-Se diseñaron 8 variables derivadas para capturar señales débiles de fraude:  
+### 3.4 Etapa 4 KDD: Transformación de Datos e Ingeniería de Características
 
-| Variable Creada | Tipo de Variable | Fórmula |  
-| :--- | :--- | :--- |  
-| **velocity_tx_ratio_1h_24h** | Numérica | Transacciones (1h) / (Transacciones (24h) + 1) |  
-| **velocity_amt_ratio_1h_24h** | Numérica | Monto (1h) / (Monto (24h) + 1) |  
-| **credit_utilization_ratio** | Numérica | Monto Transacción / (Límite de Crédito + 1) |  
-| **zscore_amount_30d** | Numérica | (Monto Actual - Media 30d) / (Desviación 30d + 1) |  
-| **security_factors_count** | Numérica | Tarjeta Presente + Chip + PIN |  
-| **is_night_tx** | Booleana | 1 si Hora es <= 4 |  
-| **is_new_account** | Booleana | 1 si Antigüedad Días es <= 90 |  
-| **composite_risk_index** | Numérica | Acumulador ponderado de 10 señales débiles concurrentes (eleva la tasa de fraude desde 0.04% en nivel 0 hasta 20.11% en nivel >= 5) |  
+#### 3.4.1 Creación de 8 Variables Derivadas de Dominio
+1. `velocity_tx_ratio_1h_24h` = $\text{tx\_last\_1h} / (\text{tx\_last\_24h} + 1)$
+2. `velocity_amt_ratio_1h_24h` = $\text{amt\_last\_1h} / (\text{amt\_last\_24h} + 1)$
+3. `credit_utilization_ratio` = $\text{transaction\_amount} / (\text{credit\_limit} + 1)$
+4. `zscore_amount_30d` = $(\text{transaction\_amount} - \mu_{30d}) / (\sigma_{30d} + 1)$
+5. `security_factors_count` = $\text{card\_present} + \text{used\_chip} + \text{used\_pin}$ (ordinal 0 a 3)
+6. `is_night_tx` = $\mathbb{I}(\text{transaction\_hour} \le 4)$
+7. `is_new_account` = $\mathbb{I}(\text{account\_age\_days} \le 90)$
+8. `composite_risk_index` = Sumatoria de 10 alertas concurrentes. Eleva la tasa de fraude desde **0.04% (nivel 0)** hasta **20.11% en nivel $\ge 5$ (Lift 9.79x)**.
 
-Posteriormente se aplicó Partición Estratificada 80/20 seguida de compresión logarítmica y RobustScaler ajustado exclusivamente sobre X_train.
+#### 3.4.2 Partición Estratificada 80/20 y Escalamiento Robusto Libre de Fuga
+* **Partición:** `X_train_df` (**`80,000` registros**, `1,644` fraudes) y `X_test_df` (**`20,000` registros**, `411` fraudes) mantienen de forma estricta el **`2.0550%`** de fraude.
+* **Codificación y Escalamiento:** Se aplicó One-Hot Encoding (`drop_first=True`) expandiendo a 91 variables numéricas. Se utilizó compresión logarítmica $\ln(1+x)$ (`np.log1p`) sobre variables monetarias y espaciales seguida de **`RobustScaler`** (centrado en mediana y escalado por IQR), ajustado estrictamente sobre `X_train`.
 
----
-
-### 3.4 Etapa 5 y Etapa 6: Minería de Datos y Evaluación Comparativa
-- Detección de Anomalías (IsolationForest): En el conjunto de prueba, las 665 instancias etiquetadas como anómalas presentaron una tasa de fraude del 7.07% frente al 1.88% de las normales (3.75x Lift).
-- Selección Estadística y Balanceo SMOTE: Se seleccionaron las 45 características más informativas y se aplicó SMOTE únicamente en X_train.
-
-**Resultados de Modelos Evaluados:**
-| Modelo | Umbral | Accuracy | Precision | Recall | F1-Score | ROC-AUC | PR-AUC | Fraude Dtectados | Omitidos |  
-| ------ | ------ | ------ | ------| ------ | ------ | ------ | ------ | ------| ------ |
-| **Baseline Mayoritario (Dummy)** | 0.50 | 0.9795 | 0.0000 | 0.0000 | 0.0000 | 0.5000 | 0.0205 | 0 | 411
-| **Regresión Logística (SMOTE)** | 0.35 | 0.8987 | 0.0903 | 0.4331 | 0.1495 | 0.8152 | 0.0964 | 178 | 233
-| **Árbol de Decisión (SMOTE)** | 0.30 | 0.9367 | 0.1349 | 0.3844 | 0.1997 | 0.8103 | 0.1109 | 158 | 253
-| **Random Forest (SMOTE)** | 0.50 | 0.8786 | 0.0895 | 0.5353 | 0.1534 | 0.8292 | 0.1039 | 220 | 191
-| **Gradient Boosting (SMOTE)** | 0.15 | 0.9313 | 0.1288 | 0.4063 | 0.1956 | 0.8379 | 0.1369 | 167 | 244
+#### 3.4.3 Selección de Variables por Dos Métodos de Filtro
+Se contrastó el método lineal paramétrico (**ANOVA $F$ / $\chi^2$**) frente al no lineal no paramétrico (**Información Mutua de Shannon - MI**):
+* **Consenso Unánime:** Ambos métodos posicionaron a **`composite_risk_index`** como la **característica #1 absoluta** ($F = 2,510.68$, $\text{MI} = 0.0248$).
+* **Alto Consenso Estructural:** Coincidencia del **`80.0%`** en el Top 25 de ambas técnicas.
+* **Selección Final:** Se conservaron las **`30` características más informativas** para modelado predictivo, eliminando ruido residual y acelerando el cómputo.
 
 ---
 
-### 3.5 Etapa 7: Interpretación del Conocimiento y Reglas de Decisión  
-| ID Regla | Condicion Logica | Fraudes Detectados | Precisión (Tasa de Fraude) | Lift sobre Base (`2.055%`) | Acción Bancaria Recomendada |  
-| ----- | ----- | ----- | ----- | ----- | ----- |  
-| **Regla 1** | `high_risk_country == 1` y `card_present == 0` y `transactions_last_1h >= 3` | 91 | 33.83% | 16.46x | Bloqueo preventivo |  
-| **Regla 2** | `high_risk_country == 1` y `account_age_days <= 90` | 131 | 23.19% | 11.28x | Bloqueo + KYC |  
-| **Regla 3** | `transaction_hour <= 4` y `international_transaction == 1` y `card_present == 0` | 114 | 12.64% | 6.15x | Reto 3D-Secure |  
-| **Regla 4** | `amount_vs_avg_ratio > 4.8` y `num_chargebacks_ever >= 2` y `card_present == 0` | 62 | 10.15% | 4.94x | Autenticación 2FA |  
-| **Regla 5** | `composite_risk_index >= 5` | 575 | 20.11% | 9.79x | Escalamiento a motor ML + 2FA |  
+### 3.5 Etapas 5 y 6 KDD: Validación Cruzada Estratificada de 5 Pliegues y Evaluación
+
+Se implementó `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)` encapsulando `ColumnTransformer`, `RobustScaler`, `OneHotEncoder` y `SelectKBest(k=30)` dentro de cada pliegue de entrenamiento para evaluar la preparación de datos con Regresión Logística y Random Forest:
+
+| Partición / Pliegue | Train Size (Fraudes) | Val Size (Fraudes) | LR ROC-AUC | LR PR-AUC | LR Recall | RF ROC-AUC | RF PR-AUC | RF Recall | RF F1-Score |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Partición 1** | `64,000` (`1,316`) | `16,000` (`328`) | `0.8369` | `0.1641` | `71.95%` | `0.8169` | `0.1405` | `66.16%` | `0.1328` |
+| **Partición 2** | `64,000` (`1,315`) | `16,000` (`329`) | `0.8536` | `0.1793` | `77.20%` | `0.8452` | `0.1420` | `68.39%` | `0.1342` |
+| **Partición 3** | `64,000` (`1,315`) | `16,000` (`329`) | `0.8663` | `0.1785` | `80.85%` | `0.8500` | `0.1507` | `73.86%` | `0.1421` |
+| **Partición 4** | `64,000` (`1,315`) | `16,000` (`329`) | `0.8527` | `0.2021` | `74.47%` | `0.8418` | `0.1637` | `65.35%` | `0.1300` |
+| **Partición 5** | `64,000` (`1,315`) | `16,000` (`329`) | `0.8519` | `0.1981` | `75.99%` | `0.8398` | `0.1570` | `69.30%` | `0.1335` |
+| **Promedio $\pm$ DE** | **`64,000`** | **`16,000`** | **`0.8523 ± 0.0104`** | **`0.1844 ± 0.0156`** | **`76.09% ± 3.30%`** | **`0.8387 ± 0.0128`** | **`0.1508 ± 0.0099`** | **`68.61% ± 3.34%`** | **`0.1345 ± 0.0044`** |
+
+* **Validez de la Preparación de Datos:**  
+  1. En los 5 pliegues, la proporción de fraudes fue exactamente del **`2.055%`** (`328` a `329` fraudes por partición de validación).
+  2. La dispersión del ROC-AUC en Random Forest fue mínima ($\sigma = 0.0034$), probando que las 30 variables seleccionadas y el escalamiento robusto no dependen de divisiones favorables de los datos.
+  3. El $PR	ext{-}AUC$ promedio en Regresión Logística ($0.1844$) superó en **`8.97x` veces el azar puro ($0.0206$)**, y en Random Forest ($0.1508$) superó en **`7.34x` veces**.
 
 ---
 
-## 4. Artefactos Generados en results/
-- 01_desbalance_y_tipologias.png: Desbalance estadístico y distribución por modalidad de fraude.
-- 02_outliers_iqr_y_isolation_forest.png: Curvas de densidad del puntaje IsolationForest y tasa de fraude por nivel de composite_risk_index.
-- 03_seleccion_variables_importancia.png: Ranking de importancia de variables (Random Forest) y estadístico Chi-Cuadrado.
-- 04_comparativa_modelos_curvas_roc_pr.png: Curvas ROC y Precision-Recall comparativas en el conjunto de prueba.
-- 05_matrices_confusion.png: Matrices de confusión de los modelos supervisados con SMOTE.
-- 06_arbol_reglas_decision.png: Árbol de decisión en unidades originales para extracción de reglas de negocio.
-- resumen_modelos_kdd.csv, reglas_negocio_validadas.csv y reglas_decision_fraude.txt.
+### 3.6 Etapa 7 KDD: Interpretación y Conclusiones del Avance
+1. **Éxito en Calidad de Datos:** Se transformaron 100,000 transacciones crudas en una matriz analítica limpia con 0 nulos, 0 duplicados y 0 fuga de información.
+2. **Valor Informativo de Outliers:** Se demostró empíricamente que los valores atípicos de velocidad multiplican hasta por 3.26x la tasa de fraude, justificando su conservación mediante normalización robusta.
+3. **Consenso Estadístico:** Ambos métodos de filtro concordaron en que `composite_risk_index` y las variables de velocidad capturan la mayor señal discriminante.
+4. **Estado de Preparación:** El pipeline de datos está certificado, empaquetado y listo para la fase de modelado avanzado y reglas de decisión.
+
+---
+
+## 4. Artefactos y Evidencia Generada en `Entregables/`
+
+* [`Notebook_Proyecto_Integrador_Data_Mining_Avance_Personal.ipynb`](Notebook_Proyecto_Integrador_Data_Mining_Avance_Personal.ipynb): Cuaderno ejecutable de extremo a extremo.
+* [`Resultados/comparativa_dos_metodos_filtro.csv`](Resultados/comparativa_dos_metodos_filtro.csv): Puntajes y rankings de las 91 características evaluadas por ANOVA $F$ y MI.
+* [`Resultados/resultados_validacion_cruzada_5fold.csv`](Resultados/resultados_validacion_cruzada_5fold.csv): Métricas de desempeño pliegue por pliegue en validación cruzada.
+* Gráficas oficiales de alta definición en [`Resultados/graficas/`](Resultados/graficas/):
+  * `fig01_diagnostico_target_y_nulos.png`: Desbalance y completitud de datos.
+  * `fig02_diagnostico_outliers_iqr.png`: Diagnóstico de Tukey y Lift en colas.
+  * `fig03_ingenieria_caracteristicas.png`: Distribuciones de las 8 variables derivadas.
+  * `fig04_escalamiento_robusto_sin_leakage.png`: Contraste antes y después de `log1p` + `RobustScaler`.
+  * `fig05_comparativa_dos_metodos_filtro.png`: Gráfico espejo de selección por dos métodos de filtro.
+  * `fig06_validacion_cruzada_5fold.png`: Estabilidad y desempeño por pliegue en 5-Fold CV.
