@@ -25,12 +25,12 @@
 
 
 > **Proyecto Final Integrador — Minería de Datos y Descubrimiento de Conocimiento (KDD)**  
-
 > **Institución:** Centro Universitario de Guadalajara (CUGDL) — Universidad de Guadalajara  
-
 > **Programa:** Licenciatura en Inteligencia Artificial y Ciencia de Datos  
-
-> **Autor:** Roberto Alejandro Chagra Martínez
+> **Profesora Titular:** Mtra. Milagros Contreras Elizalde  
+> **Alumno Investigador:** Roberto Alejandro Chagra Martínez (Código: `208447128`)  
+> **Fuente de Datos:** [Kaggle — Credit Card Fraud Detection Dataset 2026](https://www.kaggle.com/datasets/mohankrishnathalla/credit-card-fraud-detection-dataset-2026/data) (Mohan Krishna Thalla)  
+> **Modalidad de Entrega Oficial:** Cuaderno Interactivo Ejecutable (`.ipynb`) + Reporte Técnico Oficial en PDF (Arial 11, interlineado 1.5)  
 
 
 
@@ -156,140 +156,47 @@ flowchart LR
 
 ## 3. Estructura del Proyecto
 
-
-
-El proyecto está organizado en **tres modalidades de entrega equivalentes** (Notebook Unificado, Notebooks Modulares por Etapa y Paquete de Ingeniería de Software en Python), además de sus carpetas de datos, resultados gráficos/tabulares y documentación técnica:
-
-
+El repositorio está organizado conforme a los requerimientos oficiales de entrega académica, centrados en el **Cuaderno Interactivo Ejecutable (`.ipynb`)**, el **Reporte Académico Oficial en PDF** y los artefactos de datos y visualización:
 
 ```text
-
 Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisión/
-
 │
-
-├── README.md                                                     # Documentación principal del repositorio
-
-├── LICENSE                                                       # Licencia del repositorio
-
-├── .gitignore                                                    # Reglas de exclusión para control de versiones Git
-
-├── .gitattributes                                                # Configuración de atributos y finales de línea Git
-
-├── requirements.txt                                              # Dependencias de Python y versiones requeridas
-
+├── README.md                                          # Documentación principal del repositorio
+├── LICENSE                                            # Licencia del repositorio (MIT)
+├── .gitignore                                         # Reglas de exclusión para control de versiones Git
+├── requirements.txt                                   # Dependencias de Python y versiones requeridas
 │
-
-├── Entregables/                                                  # CARPETA OFICIAL DE ENTREGA DEL PROYECTO INTEGRADOR (KDD)
-
-│   ├── Notebook_Notebook_Proyecto_Integrador_Data_Mining_Avance_Personal.ipynb   # Cuaderno Google Colab (.ipynb) completo, comentado y ejecutado
-
-│   ├── Reporte_Reporte_Proyecto_Integrador_Data_Mining_Avance_Personal.pdf                # Reporte Académico Oficial en PDF (11 páginas en formato presentación KDD)
-
-
-│   ├── generar_reporte_pdf.py                                    # Script de compilación automática del reporte PDF con Chrome Headless
-
-│   ├── comparativa_dos_metodos_filtro.csv                        # Tabla comparativa de las 91 características con ANOVA F y MI
-
-│   ├── resultados_validacion_cruzada_5fold.csv                   # Resultados métricos por pliegue de la validación cruzada 5-fold
-
-│   ├── imagenes_proyecto/                                        # Ilustraciones temáticas de alta resolución (Fintech y Ciberseguridad)
-│   │   ├── portada_fraude_tarjetas.jpg                           # Tarjeta inteligente y nodos de red neuronal de detección
-│   │   ├── transacciones_anomalias.jpg                           # Telemetría transaccional global y radar de anomalías
-│   │   ├── mineria_datos_forense.jpg                             # Minería de datos 3D, clustering y árboles de decisión
-│   │   └── escudo_decision_fraude.jpg                            # Escudo cibernético de autorización y bloqueo antifraude
-│   └── figuras_avance/                                           # Gráficas de alta resolución integradas en los entregables
-
-│       ├── fig01_diagnostico_target_y_nulos.png                  # Desbalance, tipologías y ausencia estructural de browser
-
-│       ├── fig02_diagnostico_outliers_iqr.png                    # Diagnóstico Tukey 1.5xIQR y lift de fraude en colas atípicas
-
-│       ├── fig03_ingenieria_caracteristicas.png                  # Distribuciones de las 8 variables derivadas creadas
-
-│       ├── fig04_escalamiento_robusto_sin_leakage.png            # Normalización robusta log1p + RobustScaler sin leakage
-
-│       ├── fig05_comparativa_dos_metodos_filtro.png              # Comparativa espejo de selección por dos métodos de filtro
-
-│       └── fig06_validacion_cruzada_5fold.png                    # Desempeño y estabilidad por pliegue en 5-Fold Stratified CV
-
+├── Reporte_Final_KDD_Deteccion_Fraude_2026.pdf        # REPORTE TÉCNICO OFICIAL (12 págs, Arial 11, interlineado 1.5)
 │
-
-├── Datasets/                                                     # Fuente de datos transaccionales en bruto
-
-│   └── credit_card_fraud_detection_2026.csv                      # Dataset (100,000 filas x 43 columnas)
-
+├── src/                                               # CÓDIGO FUENTE DEL PROYECTO
+│   └── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb # Cuaderno interactivo ejecutable (Pipeline integral KDD)
 │
-
-├── src/Entrega_Unificada/                                            # Modalidad 1: Todo el pipeline KDD en un solo archivo
-
-│   ├── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb            # Notebook maestro ejecutado de principio a fin
-
-│   └── Proyecto_final_data_mining.py                             # Script unificado ejecutable de extremo a extremo
-
+├── Entregables/                                       # CARPETA FORMAL DE ENTREGA ACADÉMICA
+│   ├── Notebook_Proyecto_Integrador_Data_Mining_Final.ipynb # Cuaderno oficial estructurado en los 6 apartados
+│   ├── Reporte_Final_KDD_Deteccion_Fraude_2026.pdf    # Reporte Académico Oficial en PDF (Mtra. Milagros Contreras)
+│   ├── generar_reporte_extenso_pdf.py                 # Script de compilación automática del reporte PDF
+│   ├── Resultados/                                    # Artefactos analíticos y gráficas vectoriales (.vsg)
+│   └── imagenes_proyecto/                             # Recursos de identidad visual institucional (UdeG)
 │
-
-├── src/Entrega_Modular_en_Notebooks_Separados/                       # Modalidad 2: Pipeline dividido en 4 cuadernos secuenciales
-
-│   ├── 01_KDD_Seleccion_Limpieza_y_Outliers.ipynb                # Fase 1 y 2: Auditoría, imputación y análisis IQR
-
-│   ├── 02_KDD_Transformacion_Ingenieria_y_Seleccion_Variables.ipynb # Fase 3: 8 features derivadas, Split 80/20, RobustScaler
-
-│   ├── 03_KDD_Mineria_IsolationForest_SMOTE_y_Modelado.ipynb     # Fase 4: Isolation Forest, Chi2, SMOTE y 5 modelos
-
-│   └── 04_KDD_Evaluacion_Interpretacion_y_Reglas_Decision.ipynb  # Fase 5: ROC/PR-AUC, matrices de confusión y reglas IF-THEN
-
+├── Datasets/                                          # Conjunto de datos transaccionales oficial de Kaggle
+│   └── credit_card_fraud_detection_2026.csv           # Matriz de datos (100,000 registros x 43 columnas)
 │
-
-├── src/Entrega_Modular_de_Ingeniería_de_Software_en_Python/          # Modalidad 3: Arquitectura modular de producción (.py)
-
-│   ├── __init__.py                                               # Inicializador del paquete Python
-
-│   ├── orquestador_modular_kdd.py                                # Punto de entrada que ejecuta las 4 fases en secuencia
-
-│   ├── fase1_seleccion_y_limpieza.py                             # Módulo de carga, anti-leakage e imputación semántica
-
-│   ├── fase2_transformacion_y_seleccion.py                       # Módulo de ingeniería de características y escalamiento
-
-│   ├── fase3_mineria_anomalias_y_clasificacion.py                # Módulo híbrido: Isolation Forest + SMOTE + Clasificadores
-
-│   └── fase4_evaluacion_y_reglas_decision.py                     # Módulo de evaluación financiera y extracción de reglas
-
+├── Documentacion_adicional/                           # Memoria técnica y diccionario complementario
+│   ├── Documentacion_Tecnica.pdf (y .md)              # Memoria técnica y justificación KDD de 7 etapas
+│   ├── Diccionario_Funciones.pdf (y .md)              # Catálogo tabular de funciones, parámetros y salidas
+│   └── Selección de base de datos.pdf                 # Justificación académica inicial del dataset
 │
-
-├── results/                                                   # Artefactos visuales y tabulares generados por el pipeline
-
-│   ├── 01_desbalance_y_tipologias.png                            # Gráfico de desbalance 97.9% vs 2.1% y tipos de fraude
-
-│   ├── 02_outliers_iqr_y_isolation_forest.png                    # Lift de anomalías en colas IQR e Isolation Forest
-
-│   ├── 03_seleccion_variables_importancia.png                    # Top 15 variables más importantes (Random Forest / Chi2)
-
-│   ├── 04_comparativa_modelos_curvas_roc_pr.png                  # Curvas ROC-AUC y Precision-Recall (PR-AUC)
-
-│   ├── 05_matrices_confusion.png                                 # Matrices de confusión comparadas en conjunto de prueba
-
-│   ├── 06_arbol_reglas_decision.png                              # Visualización del árbol explicable de reglas de negocio
-
-│   ├── diagnostico_outliers_iqr.csv                              # Tabla de diagnóstico estadístico de valores extremos
-
-│   ├── resumen_modelos_kdd.csv                                   # Tabla comparativa de métricas de los 5 modelos
-
-│   ├── reglas_negocio_validadas.csv                              # Rendimiento empírico (Soporte, Precisión, Lift) de las 5 reglas
-
-│   └── reglas_decision_fraude.txt                                # Árbol de decisión exportado en reglas de texto plano
-
-│
-
-└── Documentacion_adicional/                                      # Reportes técnicos, diccionario de código y justificación
-
-    ├── Documentacion_Tecnica_Proyecto_Final_KDD.md               # Memoria técnica detallada de las 7 etapas del proyecto
-
-    ├── Diccionario_Funciones_Proyecto_Final_KDD.md               # Tablas de funciones utilizadas, sintaxis y resultados
-
-    ├── Selección de base de datos.pdf                            # Documento académico de justificación del dataset
-
-    └── Selección de base de datos.docx                           # Versión editable de la selección de base de datos
-
+└── results/                                           # Artefactos visuales vectoriales (.vsg) y tabulares (.csv)
+    ├── 01_desbalance_y_tipologias.vsg (y .svg, .png)  # Desbalance de is_fraud y tipologías de fraude
+    ├── 02_outliers_iqr_y_isolation_forest.vsg         # Score de Isolation Forest y riesgo compuesto
+    ├── 03_seleccion_variables_importancia.vsg         # Importancia Gini (Random Forest) y Chi-Cuadrado
+    ├── 04_comparativa_modelos_curvas_roc_pr.vsg       # Curvas ROC y Precision-Recall en test ciego
+    ├── 05_matrices_confusion.vsg                      # Matrices de confusión 2x2 para los 4 clasificadores
+    ├── 06_arbol_reglas_decision.vsg                   # Árbol White-Box y Lift de las 5 reglas de negocio
+    ├── portada_kdd_vector.vsg                         # Ilustración vectorial Cyber Dark Neón (.vsg)
+    ├── resumen_modelos_kdd.csv                        # Tabla comparativa cuantitativa de los modelos
+    ├── reglas_negocio_validadas.csv                   # Rendimiento y Lift empírico de las 5 reglas
+    └── diagnostico_outliers_iqr.csv                   # Diagnóstico estadístico de valores atípicos (Tukey IQR)
 ```
 
 
@@ -371,26 +278,16 @@ El modelo `IsolationForest(contamination=0.05)` entrenado sin etiquetas identifi
 
 
 | Modelo Evaluado | Umbral Óptimo | Accuracy | Precision (Fraude) | Recall (Sensibilidad) | F1-Score | ROC-AUC | PR-AUC | Fraudes Detectados (TP) |
-
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-
-| **1. Baseline Mayoritario (Dummy)** | `0.50` | `0.9795` | `0.0000` | `0.0000` | `0.0000` | `0.5000` | `0.0205` | `0 / 411 (0.0%)` |
-
-| **2. Regresión Logística (SMOTE)** | `0.35` | `0.8987` | `0.0903` | `0.4331` | `0.1495` | `0.8152` | `0.0964` | `178 / 411 (43.3%)` |
-
+| **1. Baseline Mayoritario (Dummy)** | `0.50` | `0.9795` | `0.0000` | `0.0000` | `0.0000` | `0.5000` | `0.0206` | `0 / 411 (0.0%)` |
+| **2. Regresión Logística (SMOTE)** | `0.40` | `0.9183` | `0.1016` | `0.3796` | `0.1603` | `0.8152` | `0.0966` | `156 / 411 (38.0%)` |
 | **3. Árbol de Decisión (SMOTE)** | `0.30` | `0.9367` | `0.1349` | `0.3844` | `0.1997` | `0.8103` | `0.1109` | `158 / 411 (38.4%)` |
+| **4. Random Forest (SMOTE)** | `0.55` | `0.9048` | `0.1001` | **`0.4550`** | `0.1641` | `0.8284` | `0.1035` | **`187 / 411 (45.5%)`** |
+| **5. Gradient Boosting (SMOTE)** | `0.15` | `0.9314` | `0.1289` | `0.4063` | `0.1957` | **`0.8379`** | **`0.1406`** | `167 / 411 (40.6%)` |
 
-| **4. Random Forest (SMOTE)** | `0.50` | `0.8786` | `0.0895` | **`0.5353`** | `0.1534` | `0.8292` | `0.1039` | **`220 / 411 (53.5%)`** |
-
-| **5. Gradient Boosting (SMOTE)** | `0.15` | `0.9313` | `0.1288` | `0.4063` | `0.1956` | **`0.8379`** | **`0.1369`** | `167 / 411 (40.6%)` |
-
-
-
-- **Paradoja de la Exactitud Demostrada:** El clasificador *Dummy* obtiene **`97.95%` de Accuracy** pero detecta **`0` fraudes** (`PR-AUC = 0.0205`).
-
-- **Mejor Discriminación Global:** **Gradient Boosting** alcanza el mayor **`ROC-AUC` (`0.8379`)** y **`PR-AUC` (`0.1369`)**, multiplicando por **6.6x** la precisión-exhaustividad del baseline azaroso.
-
-- **Mayor Captura de Fraudes (*Recall*):** **Random Forest** logra interceptar **`220` de los `411` fraudes (`53.53%`)** en el conjunto de prueba.
+- **Paradoja de la Exactitud Demostrada:** El clasificador *Dummy* obtiene **`97.95%` de Accuracy** pero detecta **`0` fraudes** (`PR-AUC = 0.0206`).
+- **Mejor Discriminación Global:** **Gradient Boosting** alcanza el mayor **`ROC-AUC` (`0.8379`)** y **`PR-AUC` (`0.1406`)**, multiplicando por **6.8x** la precisión-exhaustividad del baseline azaroso.
+- **Mayor Captura de Fraudes (*Recall*):** **Random Forest** logra interceptar **`187` de los `411` fraudes (`45.50%`)** en el conjunto de prueba conteniendo las falsas alarmas a solo 1,681 instancias.
 
 
 
@@ -470,61 +367,39 @@ pip install -r requirements.txt
 
 
 
-### 7.2 Cómo Ejecutar cualquiera de las 3 Modalidades
+### 7.2 Ejecución del Cuaderno Interactivo (Notebook)
 
+Para ejecutar el cuaderno interactivo de principio a fin con el entorno virtual activado:
 
+```bash
+jupyter notebook "src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
+```
 
-1. **Modalidad 1 — Entrega Unificada:**
+o bien desde la carpeta formal de entregables:
 
-   - Para abrir el Notebook maestro completo:
+```bash
+jupyter notebook "Entregables/Notebook_Proyecto_Integrador_Data_Mining_Final.ipynb"
+```
 
-     ```bash
+### 7.3 Generación del Reporte Oficial en PDF
 
-     jupyter notebook "src/Entrega_Unificada/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
+Para compilar el reporte oficial en PDF de 12 páginas (con tipografía formal Arial 11 e interlineado 1.5, evaluado con Chrome Headless):
 
-     ```
-
-   - O para ejecutar el script completo desde consola:
-
-     ```bash
-
-     python "src/Entrega_Unificada/Proyecto_final_data_mining.py"
-
-     ```
-
-
-
-2. **Modalidad 2 — Entrega Modular en Notebooks Separados:**
-
-   - Abre y ejecuta en orden secuencial (`01` $\rightarrow$ `02` $\rightarrow$ `03` $\rightarrow$ `04`) los cuadernos dentro de la carpeta `src/Entrega_Modular_en_Notebooks_Separados/`.
-
-
-
-3. **Modalidad 3 — Entrega Modular de Ingeniería de Software en Python:**
-
-   - Ejecuta el orquestador principal que coordina automáticamente los 4 módulos (`.py`) y actualiza todos los gráficos y tablas en `results/`:
-
-     ```bash
-
-     python "src/Entrega_Modular_de_Ingeniería_de_Software_en_Python/orquestador_modular_kdd.py"
-
-     ```
-
-
+```bash
+python "Entregables/generar_reporte_extenso_pdf.py"
+```
 
 ---
 
+## 8. Documentos de Entrega Oficial
 
-
-## 8. Documentación Complementaria
-
-
-
-Para profundizar en los aspectos teóricos, matemáticos y de implementación del proyecto, consulta la carpeta `Documentacion_adicional/`:
-
-- 📄 **[`Documentacion_Tecnica.md`](Documentacion_adicional/Documentacion_Tecnica.md)**: Justificación metodológica exhaustiva de las 7 etapas del proceso KDD.
-
-- 📘 **[`Diccionario_Funciones.md`](Documentacion_adicional/Diccionario_Funciones.md)**: Catálogo tabular de las **38 funciones y clases** utilizadas en el proyecto, incluyendo su descripción técnica, sintaxis exacta en el código, resultado cuantitativo generado y por qué fue indispensable su uso.
+Los entregables requeridos para la evaluación del Proyecto Integrador son:
+- 📓 **Cuaderno Interactivo (`.ipynb`):** [`src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb`](src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb) y [`Entregables/Notebook_Proyecto_Integrador_Data_Mining_Final.ipynb`](Entregables/Notebook_Proyecto_Integrador_Data_Mining_Final.ipynb), conteniendo todo el código, salidas en celda, análisis de costos, justificación de modelos e interpretaciones KDD.
+- 📄 **Reporte Técnico Oficial en PDF:** [`Reporte_Final_KDD_Deteccion_Fraude_2026.pdf`](Reporte_Final_KDD_Deteccion_Fraude_2026.pdf) (12 páginas estructuradas exactamente conforme a los 6 apartados de la rúbrica).
+- 📊 **Visualizaciones y Resultados Vectoriales (`.vsg`):** Carpeta [`results/`](results/) con las 7 figuras vectoriales y tablas de validación empírica.
+- 📘 **Memoria Técnica y Documentación Complementaria:** [`Documentacion_adicional/Documentacion_Tecnica.pdf`](Documentacion_adicional/Documentacion_Tecnica.pdf) (versión Markdown en [`Documentacion_adicional/Documentacion_Tecnica.md`](Documentacion_adicional/Documentacion_Tecnica.md)).
+- 📋 **Diccionario de Funciones y Clases:** [`Documentacion_adicional/Diccionario_Funciones.pdf`](Documentacion_adicional/Diccionario_Funciones.pdf) (versión Markdown en [`Documentacion_adicional/Diccionario_Funciones.md`](Documentacion_adicional/Diccionario_Funciones.md)).
+- 📑 **Selección y Justificación de Base de Datos:** [`Documentacion_adicional/Selección de base de datos.pdf`](Documentacion_adicional/Selección%20de%20base%20de%20datos.pdf).
 
 
 
