@@ -156,39 +156,43 @@ flowchart LR
 
 ## 3. Estructura del Proyecto
 
-El repositorio está organizado conforme a los requerimientos oficiales de entrega académica, centrados en el **Cuaderno Interactivo Ejecutable (`.ipynb`)**, el **Reporte Académico Oficial en PDF** y los artefactos de datos y visualización:
+El repositorio está organizado conforme a los requerimientos oficiales de entrega académica, centrados en el **Cuaderno Interactivo Ejecutable (`.ipynb`)**, los **Documentos Oficiales en PDF** y los artefactos de datos y visualización:
 
 ```text
 Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisión/
 │
-├── README.md                                          # Documentación principal del repositorio
-├── LICENSE                                            # Licencia del repositorio (MIT)
+├── README.md                                          # Documentación principal del repositorio y guía del proyecto
+├── requirements.txt                                   # Dependencias de Python requeridas para ejecución
+├── LICENSE                                            # Licencia del proyecto (MIT)
 ├── .gitignore                                         # Reglas de exclusión para control de versiones Git
-├── requirements.txt                                   # Dependencias de Python y versiones requeridas
 │
-├── src/                                              
-│   └── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb # Cuaderno interactivo ejecutable (Pipeline integral KDD)
+├── src/                                               # Código fuente principal del proyecto
+│   └── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb # Cuaderno interactivo unificado (Pipeline completo KDD de 8 etapas)
 │
-├── Entregables/                                      
-│   ├── Reporte_Final_KDD_Deteccion_Fraude_2026.pdf    # Reporte Académico Oficial en PDF (Mtra. Milagros Contreras)
-│   ├── Selección de base de datos.pdf                 # Justificación académica inicial del dataset
-│   ├── Documentacion_Tecnica.pdf (y .md)              # Memoria técnica y justificación KDD de 7 etapas
-│   └── Diccionario_Funciones.pdf (y .md)              # Catálogo tabular de funciones, parámetros y salidas
+├── Entregables/                                       # Documentos finales de entrega en formato PDF
+│   ├── Reporte_Final_KDD_Deteccion_Fraude_2026.pdf    # Reporte Oficial en PDF (12 págs, portada oficial, paleta Neón)
+│   ├── Documento_Tecnico_Proyecto_Final_KDD.pdf       # Documentación Técnica complementaria (9 págs)
+│   ├── Diccionario_Funciones_Proyecto_Final_KDD.pdf   # Diccionario formal de funciones y clases del pipeline (4 págs)
+│   └── Selección de base de datos.pdf                 # Justificación académica de la selección del dataset
 │
-├── Datasets/                                          
+├── Datasets/                                          # Datos transaccionales oficiales
 │   └── credit_card_fraud_detection_2026.csv           # Matriz de datos (100,000 registros x 43 columnas)
 │
-└── results/                                           # Artefactos visuales vectoriales (.vsg) y tabulares (.csv)
-    ├── 01_desbalance_y_tipologias.vsg (y .svg, .png)  # Desbalance de is_fraud y tipologías de fraude
-    ├── 02_outliers_iqr_y_isolation_forest.vsg         # Score de Isolation Forest y riesgo compuesto
-    ├── 03_seleccion_variables_importancia.vsg         # Importancia Gini (Random Forest) y Chi-Cuadrado
-    ├── 04_comparativa_modelos_curvas_roc_pr.vsg       # Curvas ROC y Precision-Recall en test ciego
-    ├── 05_matrices_confusion.vsg                      # Matrices de confusión 2x2 para los 4 clasificadores
-    ├── 06_arbol_reglas_decision.vsg                   # Árbol White-Box y Lift de las 5 reglas de negocio
-    ├── portada_kdd_vector.vsg                         # Ilustración vectorial Cyber Dark Neón (.vsg)
-    ├── resumen_modelos_kdd.csv                        # Tabla comparativa cuantitativa de los modelos
-    ├── reglas_negocio_validadas.csv                   # Rendimiento y Lift empírico de las 5 reglas
-    └── diagnostico_outliers_iqr.csv                   # Diagnóstico estadístico de valores atípicos (Tukey IQR)
+└── results/                                           # Artefactos analíticos, métricas y visualizaciones
+    ├── graficas/                                      # Figuras analíticas vectoriales (.vsg y .svg) de alta nitidez
+    │   ├── 01_desbalance_y_tipologias.vsg             # Desbalance de la variable objetivo y desglose por tipología
+    │   ├── 02_outliers_iqr_y_isolation_forest.vsg     # Densidad KDE de Isolation Forest y riesgo compuesto
+    │   ├── 03_seleccion_variables_importancia.vsg     # Importancia Gini (Random Forest) y Chi-Cuadrado (χ²)
+    │   ├── 04_comparativa_modelos_curvas_roc_pr.vsg   # Curvas ROC y Precision-Recall multiclasificador
+    │   ├── 05_matrices_confusion.vsg                  # Matrices de confusión 2x2 para clasificadores supervisados
+    │   └── 06_arbol_reglas_decision.vsg               # Árbol de decisión interpretable y validación empírica de Lift
+    │
+    ├── resumen_modelos_kdd.csv                        # Tabla comparativa cuantitativa en test ciego (20,000 transacciones)
+    ├── reglas_negocio_validadas.csv                   # Rendimiento, precisión y Lift empírico de las 5 reglas
+    ├── reglas_decision_fraude.txt                     # Condiciones lógicas textuales del árbol de decisión
+    ├── diagnostico_outliers_iqr.csv                   # Diagnóstico estadístico de valores atípicos (Tukey IQR)
+    ├── resultados_validacion_cruzada_5fold.csv        # Métricas de validación cruzada estratificada (5-Fold CV)
+    └── comparativa_dos_metodos_filtro.csv             # Ranking comparativo de selección de atributos (Chi² y Gini)
 ```
 
 
@@ -361,37 +365,25 @@ pip install -r requirements.txt
 
 ### 7.2 Ejecución del Cuaderno Interactivo (Notebook)
 
-Para ejecutar el cuaderno interactivo de principio a fin con el entorno virtual activado:
+Para ejecutar el cuaderno interactivo unificado de principio a fin con el entorno virtual activado:
 
 ```bash
 jupyter notebook "src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
 ```
 
-o bien desde la carpeta formal de entregables:
-
-```bash
-jupyter notebook "Entregables/Notebook_Proyecto_Integrador_Data_Mining_Final.ipynb"
-```
-
-### 7.3 Generación del Reporte Oficial en PDF
-
-Para compilar el reporte oficial en PDF de 12 páginas (con tipografía formal Arial 11 e interlineado 1.5, evaluado con Chrome Headless):
-
-```bash
-python "Entregables/generar_reporte_extenso_pdf.py"
-```
+El cuaderno reproduce de forma determinista (`SEED = 42`) todo el flujo de trabajo: carga de datos, auditoría de fugas, imputación semántica, ingeniería de variables, balanceo SMOTE, modelado supervisado/no supervisado, calibración de umbrales ($F_2$), exportación de figuras vectoriales (`results/graficas/`) y tablas analíticas (`results/`).
 
 ---
 
 ## 8. Documentos de Entrega Oficial
 
-Los entregables requeridos para la evaluación del Proyecto Integrador son:
-- 📓 **Cuaderno Interactivo (`.ipynb`):** [`src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb`](src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb) y [`Entregables/Notebook_Proyecto_Integrador_Data_Mining_Final.ipynb`](Entregables/Notebook_Proyecto_Integrador_Data_Mining_Final.ipynb), conteniendo todo el código, salidas en celda, análisis de costos, justificación de modelos e interpretaciones KDD.
-- 📄 **Reporte Técnico Oficial en PDF:** [`Reporte_Final_KDD_Deteccion_Fraude_2026.pdf`](Reporte_Final_KDD_Deteccion_Fraude_2026.pdf) (12 páginas estructuradas exactamente conforme a los 6 apartados de la rúbrica).
-- 📊 **Visualizaciones y Resultados Vectoriales (`.vsg`):** Carpeta [`results/`](results/) con las 7 figuras vectoriales y tablas de validación empírica.
-- 📘 **Memoria Técnica y Documentación Complementaria:** [`Documentacion_adicional/Documentacion_Tecnica.pdf`](Documentacion_adicional/Documentacion_Tecnica.pdf) (versión Markdown en [`Documentacion_adicional/Documentacion_Tecnica.md`](Documentacion_adicional/Documentacion_Tecnica.md)).
-- 📋 **Diccionario de Funciones y Clases:** [`Documentacion_adicional/Diccionario_Funciones.pdf`](Documentacion_adicional/Diccionario_Funciones.pdf) (versión Markdown en [`Documentacion_adicional/Diccionario_Funciones.md`](Documentacion_adicional/Diccionario_Funciones.md)).
-- 📑 **Selección y Justificación de Base de Datos:** [`Documentacion_adicional/Selección de base de datos.pdf`](Documentacion_adicional/Selección%20de%20base%20de%20datos.pdf).
+Los entregables requeridos para la evaluación del Proyecto Integrador se encuentran centralizados en la carpeta [`Entregables/`](Entregables/):
+- 📓 **Cuaderno Interactivo (`.ipynb`):** [`src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb`](src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb), conteniendo todo el código, salidas en celda, análisis de costos, justificación de modelos e interpretaciones KDD.
+- 📄 **Reporte Técnico Oficial en PDF:** [`Entregables/Reporte_Final_KDD_Deteccion_Fraude_2026.pdf`](Entregables/Reporte_Final_KDD_Deteccion_Fraude_2026.pdf) (12 páginas estructuradas conforme a los apartados de la rúbrica oficial, con portada institucional y paleta Cyber Dark Neón).
+- 📘 **Memoria Técnica y Documentación Complementaria:** [`Entregables/Documento_Tecnico_Proyecto_Final_KDD.pdf`](Entregables/Documento_Tecnico_Proyecto_Final_KDD.pdf) (9 páginas con la justificación metodológica y matemática de las etapas KDD).
+- 📋 **Diccionario de Funciones y Clases:** [`Entregables/Diccionario_Funciones_Proyecto_Final_KDD.pdf`](Entregables/Diccionario_Funciones_Proyecto_Final_KDD.pdf) (4 páginas con el catálogo tabular de funciones, parámetros y clases del pipeline).
+- 📑 **Selección y Justificación de Base de Datos:** [`Entregables/Selección de base de datos.pdf`](Entregables/Selección%20de%20base%20de%20datos.pdf).
+- 📊 **Visualizaciones y Resultados Vectoriales (`.vsg` / `.svg`):** Subcarpeta [`results/graficas/`](results/graficas/) con las figuras analíticas del pipeline y archivos tabulares de resultados en [`results/`](results/).
 
 
 
