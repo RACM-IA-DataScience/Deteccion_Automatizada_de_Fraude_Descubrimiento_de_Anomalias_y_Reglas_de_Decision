@@ -30,7 +30,6 @@
 > **Profesora Titular:** Mtra. Milagros Contreras Elizalde  
 > **Alumno Investigador:** Roberto Alejandro Chagra Martínez (Código: `208447128`)  
 > **Fuente de Datos:** [Kaggle — Credit Card Fraud Detection Dataset 2026](https://www.kaggle.com/datasets/mohankrishnathalla/credit-card-fraud-detection-dataset-2026/data) (Mohan Krishna Thalla)  
-> **Modalidad de Entrega Oficial:** Cuaderno Interactivo Ejecutable (`.ipynb`) + Reporte Técnico Oficial en PDF (Arial 11, interlineado 1.5)  
 
 
 
