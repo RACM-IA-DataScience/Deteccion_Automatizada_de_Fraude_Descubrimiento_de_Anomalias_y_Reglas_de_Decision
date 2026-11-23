@@ -166,25 +166,17 @@ Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisi
 ├── .gitignore                                         # Reglas de exclusión para control de versiones Git
 ├── requirements.txt                                   # Dependencias de Python y versiones requeridas
 │
-├── Reporte_Final_KDD_Deteccion_Fraude_2026.pdf        # REPORTE TÉCNICO OFICIAL (12 págs, Arial 11, interlineado 1.5)
-│
-├── src/                                               # CÓDIGO FUENTE DEL PROYECTO
+├── src/                                              
 │   └── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb # Cuaderno interactivo ejecutable (Pipeline integral KDD)
 │
-├── Entregables/                                       # CARPETA FORMAL DE ENTREGA ACADÉMICA
-│   ├── Notebook_Proyecto_Integrador_Data_Mining_Final.ipynb # Cuaderno oficial estructurado en los 6 apartados
+├── Entregables/                                      
 │   ├── Reporte_Final_KDD_Deteccion_Fraude_2026.pdf    # Reporte Académico Oficial en PDF (Mtra. Milagros Contreras)
-│   ├── generar_reporte_extenso_pdf.py                 # Script de compilación automática del reporte PDF
-│   ├── Resultados/                                    # Artefactos analíticos y gráficas vectoriales (.vsg)
-│   └── imagenes_proyecto/                             # Recursos de identidad visual institucional (UdeG)
-│
-├── Datasets/                                          # Conjunto de datos transaccionales oficial de Kaggle
-│   └── credit_card_fraud_detection_2026.csv           # Matriz de datos (100,000 registros x 43 columnas)
-│
-├── Documentacion_adicional/                           # Memoria técnica y diccionario complementario
+│   ├── Selección de base de datos.pdf                 # Justificación académica inicial del dataset
 │   ├── Documentacion_Tecnica.pdf (y .md)              # Memoria técnica y justificación KDD de 7 etapas
-│   ├── Diccionario_Funciones.pdf (y .md)              # Catálogo tabular de funciones, parámetros y salidas
-│   └── Selección de base de datos.pdf                 # Justificación académica inicial del dataset
+│   └── Diccionario_Funciones.pdf (y .md)              # Catálogo tabular de funciones, parámetros y salidas
+│
+├── Datasets/                                          
+│   └── credit_card_fraud_detection_2026.csv           # Matriz de datos (100,000 registros x 43 columnas)
 │
 └── results/                                           # Artefactos visuales vectoriales (.vsg) y tabulares (.csv)
     ├── 01_desbalance_y_tipologias.vsg (y .svg, .png)  # Desbalance de is_fraud y tipologías de fraude
