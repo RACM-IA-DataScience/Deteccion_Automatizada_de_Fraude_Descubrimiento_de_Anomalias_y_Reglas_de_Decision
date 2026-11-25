@@ -1,4 +1,5 @@
-#  💳 KDD Process for Automated Credit Card Fraud Detection
+![💳 KDD Process for Automated Credit Card Fraud Detection](resources/portada.png)
+
 
 [![License: MIT](https://img.shields.io/badge/Licencia-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -11,10 +12,9 @@
 [![Dataset](https://img.shields.io/badge/Dataset-100K%20Transacciones-2E8B57?style=for-the-badge)](Datasets/credit_card_fraud_detection_2026.csv)
 [![Estado](https://img.shields.io/badge/Estado-Completado-brightgreen?style=for-the-badge)]()
 
-> **Proyecto:** KDD Process for Automated Credit Card Fraud Detection  
-> **Proyecto Final Integrador — Minería de Datos y Descubrimiento de Conocimiento (KDD)**  
 > **Institución:** Centro Universitario de Guadalajara (CUGDL) — Universidad de Guadalajara  
 > **Programa:** Licenciatura en Inteligencia Artificial y Ciencia de Datos  
+> **Materia:** Data Mining & Knowledge Discovery 
 > **Profesora:** Mtra. Milagros Contreras Elizalde  
 > **Alumno:** Roberto Alejandro Chagra Martínez (Código: `208447128`)  
 > **Fuente de Datos:** [Kaggle — Credit Card Fraud Detection Dataset 2026](https://www.kaggle.com/datasets/mohankrishnathalla/credit-card-fraud-detection-dataset-2026/data) (Mohan Krishna Thalla)  
