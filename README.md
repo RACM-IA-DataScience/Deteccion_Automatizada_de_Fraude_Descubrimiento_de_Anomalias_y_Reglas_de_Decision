@@ -15,8 +15,8 @@
 > **Proyecto Final Integrador — Minería de Datos y Descubrimiento de Conocimiento (KDD)**  
 > **Institución:** Centro Universitario de Guadalajara (CUGDL) — Universidad de Guadalajara  
 > **Programa:** Licenciatura en Inteligencia Artificial y Ciencia de Datos  
-> **Profesora Titular:** Mtra. Milagros Contreras Elizalde  
-> **Alumno Investigador:** Roberto Alejandro Chagra Martínez (Código: `208447128`)  
+> **Profesora:** Mtra. Milagros Contreras Elizalde  
+> **Alumno:** Roberto Alejandro Chagra Martínez (Código: `208447128`)  
 > **Fuente de Datos:** [Kaggle — Credit Card Fraud Detection Dataset 2026](https://www.kaggle.com/datasets/mohankrishnathalla/credit-card-fraud-detection-dataset-2026/data) (Mohan Krishna Thalla)  
 
 
