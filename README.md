@@ -1,36 +1,24 @@
-#  💳 Detección Automatizada de Fraude, Descubrimiento de Anomalías y Reglas de Decisión (KDD 2026)
-
-
+#  💳 KDD Process for Automated Credit Card Fraud Detection
 
 [![License: MIT](https://img.shields.io/badge/Licencia-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
-
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.9.1-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-
 [![Imbalanced-Learn](https://img.shields.io/badge/Imbalanced--Learn-SMOTE-009688?style=for-the-badge)](https://imbalanced-learn.org/)
-
 [![Pandas](https://img.shields.io/badge/Pandas-3.0.6-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-
 [![NumPy](https://img.shields.io/badge/NumPy-2.5.4-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
-
 [![Metodología](https://img.shields.io/badge/Metodolog%C3%ADa-KDD%20(7%20Etapas)-8A2BE2?style=for-the-badge)]()
-
 [![Dataset](https://img.shields.io/badge/Dataset-100K%20Transacciones-2E8B57?style=for-the-badge)](Datasets/credit_card_fraud_detection_2026.csv)
-
 [![Estado](https://img.shields.io/badge/Estado-Completado-brightgreen?style=for-the-badge)]()
 
-
-
+> **Proyecto:** KDD Process for Automated Credit Card Fraud Detection  
 > **Proyecto Final Integrador — Minería de Datos y Descubrimiento de Conocimiento (KDD)**  
 > **Institución:** Centro Universitario de Guadalajara (CUGDL) — Universidad de Guadalajara  
 > **Programa:** Licenciatura en Inteligencia Artificial y Ciencia de Datos  
 > **Profesora Titular:** Mtra. Milagros Contreras Elizalde  
 > **Alumno Investigador:** Roberto Alejandro Chagra Martínez (Código: `208447128`)  
 > **Fuente de Datos:** [Kaggle — Credit Card Fraud Detection Dataset 2026](https://www.kaggle.com/datasets/mohankrishnathalla/credit-card-fraud-detection-dataset-2026/data) (Mohan Krishna Thalla)  
-> **Modalidad de Entrega Oficial:** Cuaderno Interactivo Ejecutable (`.ipynb`) + Reporte Técnico Oficial en PDF (Arial 11, interlineado 1.5)  
+> **Modalidad de Entrega Oficial:** Cuaderno Interactivo Ejecutable (`.ipynb`) + Entregables Oficiales en PDF (Arial 11, interlineado 1.5)  
 
 
 
@@ -167,10 +155,10 @@ Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisi
 ├── .gitignore                                         # Reglas de exclusión para control de versiones Git
 │
 ├── src/                                               # Código fuente principal del proyecto
-│   └── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb # Cuaderno interactivo unificado (Pipeline completo KDD de 8 etapas)
+│   └── Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb # Cuaderno interactivo unificado (Pipeline KDD con Etapa 0 de setup + 8 etapas)
 │
 ├── Entregables/                                       # Documentos finales de entrega en formato PDF
-│   ├── Reporte_Final_KDD_Deteccion_Fraude_2026.pdf    # Reporte Oficial en PDF (12 págs, portada oficial, paleta Neón)
+│   ├── Reporte_Final_KDD_Deteccion_Fraude_2026.pdf    # Reporte Oficial en PDF (14 págs desahogadas, portada oficial, paleta Neón)
 │   ├── Documento_Tecnico_Proyecto_Final_KDD.pdf       # Documentación Técnica complementaria (9 págs)
 │   ├── Diccionario_Funciones_Proyecto_Final_KDD.pdf   # Diccionario formal de funciones y clases del pipeline (4 págs)
 │   └── Selección de base de datos.pdf                 # Justificación académica de la selección del dataset
@@ -184,9 +172,13 @@ Deteccion_Automatizada_de_Fraude_Descubrimiento_de_Anomalías_y_Reglas_de_Decisi
     │   ├── 02_outliers_iqr_y_isolation_forest.vsg     # Densidad KDE de Isolation Forest y riesgo compuesto
     │   ├── 03_seleccion_variables_importancia.vsg     # Importancia Gini (Random Forest) y Chi-Cuadrado (χ²)
     │   ├── 04_comparativa_modelos_curvas_roc_pr.vsg   # Curvas ROC y Precision-Recall multiclasificador
-    │   ├── 05_matrices_confusion.vsg                  # Matrices de confusión 2x2 para clasificadores supervisados
+    │   ├── 05_matrices_confusion.vsg                  # Matrices de confusión completas supervisadas
+    │   ├── 05a_matriz_campeon_dual.vsg                # Matriz dual del modelo campeón (Train vs. Test)
+    │   ├── 05b_matrices_comparativas_supervisadas.vsg # Matrices comparativas independientes de los 4 clasificadores en Test
     │   └── 06_arbol_reglas_decision.vsg               # Árbol de decisión interpretable y validación empírica de Lift
     │
+    ├── grid_search_hiperparametros.csv                # Optimización sistemática de hiperparámetros con 5-Fold Stratified CV
+    ├── comparativa_train_val_test.csv                 # Evaluación comparativa rigurosa: Train vs. Validación (CV) vs. Test
     ├── resumen_modelos_kdd.csv                        # Tabla comparativa cuantitativa en test ciego (20,000 transacciones)
     ├── reglas_negocio_validadas.csv                   # Rendimiento, precisión y Lift empírico de las 5 reglas
     ├── reglas_decision_fraude.txt                     # Condiciones lógicas textuales del árbol de decisión
@@ -269,27 +261,50 @@ El modelo `IsolationForest(contamination=0.05)` entrenado sin etiquetas identifi
 
 
 
-### 5.2 Comparativa de Clasificadores Supervisados (Conjunto de Prueba: $N = 20,000$, Fraudes Reales = $411$)
+### 5.2 Búsqueda de Hiperparámetros con Grid Search y Validación Cruzada (5-Fold Stratified CV)
 
+Para asegurar la **capacidad de generalización** y el **control estricto contra el sobreajuste (*overfitting*)**, se implementó `GridSearchCV` con validación cruzada estratificada de 5 particiones (`StratifiedKFold(n_splits=5, shuffle=True, random_state=42)`) **estrictamente sobre el conjunto de entrenamiento balanceado (`X_train_smote`), sin utilizar en ningún momento el conjunto de prueba**:
 
+| Modelo | Espacio de Búsqueda Exploratorio | Hiperparámetros Óptimos Seleccionados | Métrica Objetivo ($F_1\text{-CV}$) | Estrategia de Validación (0% Fuga) |
+| :--- | :--- | :--- | :---: | :--- |
+| **Árbol de Decisión** | `max_depth: [6,8]`, `min_samples_split: [20,30]`, `min_samples_leaf: [10]`, `class_weight: ['balanced']` | `max_depth=8, min_samples_split=20, min_samples_leaf=10, class_weight='balanced'` | **`0.7676`** | 5-Fold Stratified CV en `X_train_smote` |
+| **Random Forest** | `n_estimators: [100,200]`, `max_depth: [6,8]`, `min_samples_split: [15]`, `min_samples_leaf: [8]`, `class_weight: ['balanced']` | `n_estimators=100, max_depth=8, min_samples_split=15, min_samples_leaf=8, class_weight='balanced'` | **`0.7386`** | 5-Fold Stratified CV en `X_train_smote` |
 
-| Modelo Evaluado | Umbral Óptimo | Accuracy | Precision (Fraude) | Recall (Sensibilidad) | F1-Score | ROC-AUC | PR-AUC | Fraudes Detectados (TP) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **1. Baseline Mayoritario (Dummy)** | `0.50` | `0.9795` | `0.0000` | `0.0000` | `0.0000` | `0.5000` | `0.0206` | `0 / 411 (0.0%)` |
-| **2. Regresión Logística (SMOTE)** | `0.40` | `0.9183` | `0.1016` | `0.3796` | `0.1603` | `0.8152` | `0.0966` | `156 / 411 (38.0%)` |
-| **3. Árbol de Decisión (SMOTE)** | `0.30` | `0.9367` | `0.1349` | `0.3844` | `0.1997` | `0.8103` | `0.1109` | `158 / 411 (38.4%)` |
-| **4. Random Forest (SMOTE)** | `0.55` | `0.9048` | `0.1001` | **`0.4550`** | `0.1641` | `0.8284` | `0.1035` | **`187 / 411 (45.5%)`** |
-| **5. Gradient Boosting (SMOTE)** | `0.15` | `0.9314` | `0.1289` | `0.4063` | `0.1957` | **`0.8379`** | **`0.1406`** | `167 / 411 (40.6%)` |
-
-- **Paradoja de la Exactitud Demostrada:** El clasificador *Dummy* obtiene **`97.95%` de Accuracy** pero detecta **`0` fraudes** (`PR-AUC = 0.0206`).
-- **Mejor Discriminación Global:** **Gradient Boosting** alcanza el mayor **`ROC-AUC` (`0.8379`)** y **`PR-AUC` (`0.1406`)**, multiplicando por **6.8x** la precisión-exhaustividad del baseline azaroso.
-- **Mayor Captura de Fraudes (*Recall*):** **Random Forest** logra interceptar **`187` de los `411` fraudes (`45.50%`)** en el conjunto de prueba conteniendo las falsas alarmas a solo 1,681 instancias.
-
-
+> [!NOTE]
+> **Calibración de Umbral Sensible al Costo ($\theta = 0.55$) Sin Fuga:** La optimización de la frontera de decisión para maximizar la función sensible al costo $F_2\text{-Score}$ se ejecutó exclusivamente a partir de las **probabilidades Out-Of-Fold (OOF)** generadas mediante validación cruzada en entrenamiento (`cross_val_predict`). El conjunto de prueba ciego jamás intervino en la sintonización del umbral.
 
 ---
 
+### 5.3 Comparativa Integral de Métricas: Entrenamiento vs. Validación (CV OOF) vs. Prueba Ciega (Test)
 
+La evaluación en tres dimensiones certifica la solidez predictiva de las arquitecturas y confirma el **control riguroso del sobreajuste**:
+
+| Modelo Evaluado | $F_1$ Train | ROC-AUC Train | $F_1$ Val CV (OOF) | ROC-AUC Val CV | ROC-AUC Test | Recall Test | $F_1\text{-Score}$ Test | Brecha ROC (Train - Test) | Evaluación de Generalización |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **1. Baseline Mayoritario (Dummy)** | `0.0000` | `0.5000` | `0.0000` | `0.5000` | `0.5000` | `0.0000` | `0.0000` | `0.0000` | Cero discriminación (*Línea Base*) |
+| **2. Regresión Logística (SMOTE)** | `0.7038` | `0.9302` | `0.7029` | `0.9295` | `0.8177` | `0.5742` | `0.1173` | `0.1125` | Alta estabilidad lineal paramétrica |
+| **3. Árbol de Decisión (Optimizado)** | `0.7820` | `0.9626` | `0.7673` | `0.9588` | `0.8079` | `0.5207` | `0.1469` | `0.1547` | Robusta White-Box (Interpretable) |
+| **4. Random Forest (Modelo Campeón)** | `0.7467` | `0.9531` | `0.7406` | `0.9484` | **`0.8301`** | **`0.6083`** | `0.1410` | **`0.1230`** | **Óptima (Brecha controlada < 0.13)** |
+| **5. Gradient Boosting (Retador)** | `0.9420` | `0.9897` | `0.9369` | `0.9880` | **`0.8382`** | `0.0389` | `0.0717` | `0.1515` | Moderada (Especificidad extrema en $\theta=0.5$) |
+
+- **Ausencia de Sobreajuste Catastrófico:** En **Random Forest**, la brecha entre el $F_1\text{-Score}$ de entrenamiento (`0.7467`) y validación cruzada (`0.7406`) es inferior al **`0.6%`**, y la brecha de ROC-AUC hacia la prueba ciega es de apenas **`0.1230`**, comprobando un ajuste equilibrado sin memorización espuria.
+- **Sensibilidad Operativa Superior:** Random Forest captura **`250` de los `411` fraudes reales (`60.83%` Recall)** bajo el umbral calibrado en OOF ($\theta = 0.55$), salvaguardando más de **`$150,000 USD`** proyectados.
+
+---
+
+### 5.4 Evaluación de Matrices de Confusión Duales (Entrenamiento vs. Prueba)
+
+El contraste simultáneo de las matrices de confusión entre el entorno de entrenamiento balanceado (con SMOTE al $30\%$) y el entorno de prueba con prevalencia real ($2.055\%$) transparenta la dinámica de decisión:
+
+| Modelo Evaluado | Matriz en Entrenamiento (SMOTE 30%) | Matriz en Prueba Ciega ($N = 20,000$, Prevalencia Real 2.055%) | Análisis de Generalización y Falsas Alarmas |
+| :--- | :--- | :--- | :--- |
+| **Baseline Mayoritario** | `TN=78,356, FP=0, FN=23,506, TP=0` | `TN=19,589, FP=0, FN=411, TP=0` | Confirma la trampa del Accuracy: omite el 100% de fraudes en ambos escenarios. |
+| **Regresión Logística** | `TN=65,370, FP=12,986, FN=5,471, TP=18,035` | `TN=16,211, FP=3,378, FN=175, TP=236` | Recall de 57.42% en test; la linealidad genera un volumen constante de falsos positivos. |
+| **Árbol de Decisión** | `TN=71,327, FP=7,029, FN=3,912, TP=19,594` | `TN=17,300, FP=2,289, FN=197, TP=214` | Recall de 52.07% en test; la poda con `depth=8` evitó la sobre-ramificación por ruido. |
+| **Random Forest (Campeón)** | `TN=70,123, FP=8,233, FN=4,812, TP=18,694` | `TN=16,705, FP=2,884, FN=161, TP=250` | **Máximo Recall operativo (60.83%)**; balance óptimo entre captura de capital y carga del call center. |
+| **Gradient Boosting** | `TN=77,210, FP=1,146, FN=241, TP=23,265` | `TN=19,570, FP=19, FN=395, TP=16` | Ultra-alta especificidad (solo 19 falsas alarmas en test), ideal como filtro de alta certeza. |
+
+---
 
 ## 6. Conocimiento Descubierto: 5 Reglas de Decisión Accionables (*White-Box*)
 
@@ -368,7 +383,7 @@ pip install -r requirements.txt
 Para ejecutar el cuaderno interactivo unificado de principio a fin con el entorno virtual activado:
 
 ```bash
-jupyter notebook "src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb"
+jupyter notebook "src/Proyecto_KDD_Process_for_Automated_Credit_Card_Fraud_Detection.ipynb"
 ```
 
 El cuaderno reproduce de forma determinista (`SEED = 42`) todo el flujo de trabajo: carga de datos, auditoría de fugas, imputación semántica, ingeniería de variables, balanceo SMOTE, modelado supervisado/no supervisado, calibración de umbrales ($F_2$), exportación de figuras vectoriales (`results/graficas/`) y tablas analíticas (`results/`).
@@ -377,9 +392,9 @@ El cuaderno reproduce de forma determinista (`SEED = 42`) todo el flujo de traba
 
 ## 8. Documentos de Entrega Oficial
 
-Los entregables requeridos para la evaluación del Proyecto Integrador se encuentran centralizados en la carpeta [`Entregables/`](Entregables/):
-- 📓 **Cuaderno Interactivo (`.ipynb`):** [`src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb`](src/Proyecto_Final_KDD_Deteccion_Fraude_2026.ipynb), conteniendo todo el código, salidas en celda, análisis de costos, justificación de modelos e interpretaciones KDD.
-- 📄 **Reporte Técnico Oficial en PDF:** [`Entregables/Reporte_Final_KDD_Deteccion_Fraude_2026.pdf`](Entregables/Reporte_Final_KDD_Deteccion_Fraude_2026.pdf) (12 páginas estructuradas conforme a los apartados de la rúbrica oficial, con portada institucional y paleta Cyber Dark Neón).
+Los entregables requeridos para la evaluación del Proyecto Integrador **KDD Process for Automated Credit Card Fraud Detection** se encuentran centralizados en la carpeta [`Entregables/`](Entregables/):
+- 📓 **Cuaderno Interactivo (`.ipynb`):** [`src/Proyecto_KDD_Process_for_Automated_Credit_Card_Fraud_Detection.ipynb`](src/Proyecto_KDD_Process_for_Automated_Credit_Card_Fraud_Detection.ipynb), conteniendo todo el código reproducible, salidas en celda, Etapa 0 (configuración de entorno, rutas automáticas Colab/Local y paleta de colores), análisis de costos, justificación de modelos e interpretaciones KDD.
+- 📄 **Reporte Técnico Oficial en PDF:** [`Entregables/Reporte_Final_KDD_Deteccion_Fraude_2026.pdf`](Entregables/Reporte_Final_KDD_Deteccion_Fraude_2026.pdf) (14 páginas desahogadas estructuradas conforme a la rúbrica oficial, con portada institucional con el nombre oficial del proyecto, páginas dedicadas para matrices de confusión de alta legibilidad y paleta Cyber Dark Neón).
 - 📘 **Memoria Técnica y Documentación Complementaria:** [`Entregables/Documento_Tecnico_Proyecto_Final_KDD.pdf`](Entregables/Documento_Tecnico_Proyecto_Final_KDD.pdf) (9 páginas con la justificación metodológica y matemática de las etapas KDD).
 - 📋 **Diccionario de Funciones y Clases:** [`Entregables/Diccionario_Funciones_Proyecto_Final_KDD.pdf`](Entregables/Diccionario_Funciones_Proyecto_Final_KDD.pdf) (4 páginas con el catálogo tabular de funciones, parámetros y clases del pipeline).
 - 📑 **Selección y Justificación de Base de Datos:** [`Entregables/Selección de base de datos.pdf`](Entregables/Selección%20de%20base%20de%20datos.pdf).

@@ -1,0 +1,3 @@
+Modelo,Mejores_Hiperparametros,Mejor_F1_Score_CV,Criterio_Optimizacion
+Decision Tree,"{'class_weight': 'balanced', 'max_depth': 8, 'min_samples_leaf': 10, 'min_samples_split': 20}",0.7676,F1-Score (5-Fold Stratified CV en X_train_smote)
+Random Forest,"{'class_weight': 'balanced', 'max_depth': 8, 'min_samples_leaf': 8, 'min_samples_split': 15, 'n_estimators': 100}",0.7386,F1-Score (5-Fold Stratified CV en X_train_smote)
